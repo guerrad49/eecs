@@ -41,7 +41,7 @@
 \lstset{inputpath=scripts}
 \usepackage{subfiles}    % section links
 
-\usepackage{parskip}     % avoid improper use of //
+\usepackage{parskip}     % avoid improper use of \
 
 % the following are for VSCODE
 \definecolor{vsGreen}{cmyk}{0.7,0,0.9,0.3}    % comments
@@ -85,7 +85,7 @@
 }
 
 \renewcommand{\solutiontitle}{\noindent\textbf{\color{red}{Solution:}}\enspace}
-
+\newcommand{\tmod}[1]{\mkern+4mu\mathrm{mod}\ #1}  % tight mod
 
 %==============================================================================
 %==============================================================================
@@ -139,13 +139,13 @@
 	\subfile{sections/hw02}
 	\newpage
 
-	% \section{Homework 03}
-	% \subfile{sections/hw03}
-	% \newpage
+	\section{Homework 03}
+	\subfile{sections/hw03}
+	\newpage
 
-	% \section{Homework 04}
-	% \subfile{sections/hw04}
-	% \newpage
+	\section{Homework 04}
+	\subfile{sections/hw04}
+	\newpage
 
 	% \section{Homework 05}
 	% \subfile{sections/hw05}

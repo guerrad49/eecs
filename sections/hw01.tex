@@ -10,18 +10,28 @@
 %%=============================================================================
 
 \subsection*{Problem 3.1}
-A generalization of the Caesar cipher, known as the affine Caesar cipher, has the following form: For each plaintext letter $p$, substitute the ciphertext letter $C$:
-	$$C = E([a,b], p) = (ap + b) \text{ mod 26}$$
-A basic requirement of any encryption algorithm is that it be one-to-one. That is, if $p \neq q$, then $E(k,p) \neq E(k,q)$. Otherwise, decryption is impossible, because more than one plaintext character maps into the same ciphertext character. The affine Caesar cipher is not one-to-one for all values of $a$. For example, for $a = 2$ and $b = 3$, then $E([a,b], 0) = E([a,b], 13) = 3$.
+
+A generalization of the Caesar cipher, known as the affine Caesar cipher, has 
+the following form: For each plaintext letter $p$, substitute the ciphertext 
+letter $C$:
+	$$C = E([a,b], p) = (ap + b) \tmod{26}$$
+A basic requirement of any encryption algorithm is that it be one-to-one. 
+That is, if $p \neq q$, then $E(k,p) \neq E(k,q)$. Otherwise, decryption is 
+impossible, because more than one plaintext character maps into the same 
+ciphertext character. The affine Caesar cipher is not one-to-one for all 
+values of $a$. For example, for $a = 2$ and $b = 3$, then \newline
+$E([a,b], 0) = E([a,b], 13) = 3$.
 
 \begin{description}
 
 %=== PART A ====
-\item[a.] Are there any limitations on the value of $b$? Explain why or why not. [3 points]
+\item[a.] Are there any limitations on the value of $b$? Explain why or why 
+not. [3 points]
 
 %=== SOLUTION ====
 \begin{solution}
-Addition by $b$ represents a shift substitution. Therefore, impose $b \in \mathbb{Z}_{26}$ so each shift is unique.
+Addition by $b$ represents a shift substitution. Therefore, impose 
+$b \in \mathbb{Z}_{26}$ so each shift is unique.
 \end{solution}
 
 %=== PART B ====
@@ -30,8 +40,9 @@ Addition by $b$ represents a shift substitution. Therefore, impose $b \in \mathb
 %=== SOLUTION ===
 \begin{solution}
 The decryption algorithm is easy to construct.
-$$D([a,b],C) := a^{-1}(C-b) \pmod{26} = p$$
-For $a^{-1} \pmod{26}$ to exists, we require $\gcd(a,26) = 1$. Hence, $a$ cannot be even or 13.
+	$$D([a,b],C) := a^{-1}(C-b) \tmod{26} = p$$
+For $a^{-1} \tmod{26}$ to exists, we require $\gcd(a,26) = 1$. Hence, $a$ 
+cannot be even or 13.
 \end{solution}
 
 \end{description}
@@ -45,13 +56,21 @@ For $a^{-1} \pmod{26}$ to exists, we require $\gcd(a,26) = 1$. Hence, $a$ cannot
 %%=============================================================================
 
 \subsection*{Problem 3.8}
-A disadvantage of the general monoalphabetic cipher is that both sender and receiver must commit the permuted cipher sequence to memory. A common technnique for avoiding this is to use a keyword from which the cipher sequence can be generated. For example, using the keyword CRYPTO, write out the keyword followed by unused letters in normal order and match this against the plaintext letters:
+
+A disadvantage of the general monoalphabetic cipher is that both sender and 
+receiver must commit the permuted cipher sequence to memory. A common 
+technnique for avoiding this is to use a keyword from which the cipher 
+sequence can be generated. For example, using the keyword CRYPTO, write out 
+the keyword followed by unused letters in normal order and match this against 
+the plaintext letters:
 \begin{verbatim}
     plain:  a b c d e f g h i j k l m n o p q r s t u v w x y z
     CIPHER: C R Y P T O A B D E F G H I J K L M N Q S U V W X Z
 \end{verbatim}
 
-\noindent If it is felt that this process does not produce sufficient mixing, write the remaining letters on successive lines and then generate the sequence by reading down the columns:
+\noindent If it is felt that this process does not produce sufficient mixing, 
+write the remaining letters on successive lines and then generate the sequence 
+by reading down the columns:
 \begin{verbatim}
             C R Y P T O
             A B D E F G
@@ -65,18 +84,23 @@ A disadvantage of the general monoalphabetic cipher is that both sender and rece
     C A H N X R B I Q Z Y D J S P E K U T F L V O G M W
 \end{verbatim}
 
-% FIX: Option [page=#] doesn't work
-\noindent Such a system is used in the example in \href{run:../Cryptography and Network Security.pdf}{Section 3.2} (the one that begins "it was disclosed yesterday"). Determine the keyword. [3 points]
+% TODO: Option [page=#] doesn't work.
+\noindent Such a system is used in the example in 
+\href{run:../Cryptography and Network Security.pdf}{Section 3.2} (the one that 
+begins "it was disclosed yesterday"). Determine the keyword. [3 points]
 
 %=== SOLUTION ====
 \begin{solution}
+
 From the decrypt, we know the correspondence below:
 \begin{verbatim}
     plain:  a b c d e f g h i j k l m n o p q r s t u v w x y z
     CIPHER: S A H V P B J W U ? ? X T D M Y ? E O Z I F Q ? G ?	
 \end{verbatim}
 
-\noindent The keyword must have a length of 6 so that \verb|A| and \verb|B| line up horizontally.
+\noindent The keyword must have a length of 6 so that \verb|A| and \verb|B| 
+line up horizontally.
+% TODO: Maybe minipages with one big Rightarrow?.
 \begin{verbatim}
             S P U T ? I ?                  S P U T N I K
             A B ? D E F G        =>        A B C D E F G
@@ -85,6 +109,7 @@ From the decrypt, we know the correspondence below:
 \end{verbatim}
 
 \noindent With little effort, we see the keyword is \verb|SPUTNIK|.
+
 \end{solution}
 
 
@@ -96,7 +121,10 @@ From the decrypt, we know the correspondence below:
 %%=============================================================================
 
 \subsection*{Problem 3.9}
-When the PT-109 American patrol boat, under the command of Lieutenant John F. Kennedy, was sunk by a Japanese destroyer, a message was received at an Australian wireless station in Playfair code:
+
+When the PT-109 American patrol boat, under the command of Lieutenant John F. 
+Kennedy, was sunk by a Japanese destroyer, a message was received at an 
+Australian wireless station in Playfair code:
 \begin{verbatim}
             KXJEY UREBE ZWEHE WRYTU HEYFS
             KREHE GOYFI WTTTU OLKSY CAJPO
@@ -104,12 +132,14 @@ When the PT-109 American patrol boat, under the command of Lieutenant John F. Ke
             GDSON SXBOU YWRHE BAAHY USEDQ
 \end{verbatim}
 
-\noindent The key used was \textit{royal new zealand navy}. Decrypt the message. Translate \verb|TT| into tt. [3points]
+\noindent The key used was \textit{royal new zealand navy}. Decrypt the 
+message. Translate \verb|TT| into tt. [3points]
 
 %=== SOLUTION ====
 \begin{solution}
+
 Begin by creating the $5 \times 5$ Playfair matrix from the known keyword.
-\begin{center}
+	\begin{center}
 	\begin{tabular}{ | c | c | c | c | c | }
 		\hline \rowcolor{cyan!40}
 		R & O & Y & A & L \\
@@ -123,22 +153,24 @@ Begin by creating the $5 \times 5$ Playfair matrix from the known keyword.
 		Q &   S & T & U & X \\
 		\hline
 	\end{tabular}
-\end{center}
+	\end{center}
 
-\noindent Then, we can break up the ciphertext into digrams and decrypt each by applying the algorithm in reverse.
-	\begin{verbatim}
+\noindent Then, we can break up the ciphertext into digrams and decrypt each 
+by applying the algorithm in reverse.
+\begin{verbatim}
 	CIPHER: KX JE YU RE BE ZW E H  EW RY TU  H E YF S K  RE  H E GO YF IW TT TU OL  K S YC AJ
 	plain:  pt bo at on eo we ni/j ne lo st i/jn ac ti/j on i/jn bl ac ke tt st ra i/jt tw om
 
 	CIPHER: P O  BO TE IZ ON TX BY BN TG ON EY CU ZW RG DS ON SX BO UY WR  H E BA AH YU  S E DQ
 	plain:  i/jl es sw me re su co ve xc re wo ft we lv ex re qu es ta ny i/jn fo rm at i/jo nx
-	\end{verbatim}
+\end{verbatim}
 
-\noindent When rearranging the cipher, we can ignore extra x's to get the plaintext:
-	\begin{verbatim}
+\noindent When rearranging the cipher, we can ignore extra x's to get the 
+plaintext:
+\begin{verbatim}
 	    pt boat one owe nine lost in action in blackett strait two miles
 	    sw meresu cove crew of twelve request any information
-	\end{verbatim}
+\end{verbatim}
 
 \end{solution}
 
@@ -151,11 +183,12 @@ Begin by creating the $5 \times 5$ Playfair matrix from the known keyword.
 %%=============================================================================
 
 \subsection*{Problem 3.11}
+
 \begin{description}
 
 %=== PART A ====
 \item[a.] Using this Playfair matrix:
-\begin{center}
+	\begin{center}
 	\begin{tabular}{ | c | c | c | c | c | }
 		\hline
 		M & F & H & I/J & K \\
@@ -169,19 +202,21 @@ Begin by creating the $5 \times 5$ Playfair matrix from the known keyword.
 		D & S & T &   B & C \\
 		\hline
 	\end{tabular}
-\end{center}
-Encrypt this message:
-	$$\text{Must see you over Cadogan West. Coming at once.}$$
+	\end{center}
 
-\noindent \textit{Note:} This message is from the Sherlock Holmes story, The Adventure of the Bruce-Partingon plans. [3 points]
+\noindent Encrypt this message:
+	$$\text{Must see you over Cadogan West. Coming at once.}$$
+\textit{Note:} This message is from the Sherlock Holmes story, The 
+Adventure of the Bruce-Partingon plans. [3 points]
 
 %=== SOLUTION ====
 \begin{solution}
-Split the plaintext into digrams and add pad with an 'x' to encrypt as shown below.
-	\begin{verbatim}
+Split the plaintext into digrams and add pad with an 'x' to encrypt as shown 
+below.
+\begin{verbatim}
     plain:  mu st se ey ou ov er ca do ga nw es tc om in ga to nc ex
     CIPHER: UZ TB DL GZ PN NW LG TG TU ER VO LD BD UH FP ER HW QS RZ
-	\end{verbatim}
+\end{verbatim}
 \end{solution}
 
 
@@ -190,8 +225,10 @@ Split the plaintext into digrams and add pad with an 'x' to encrypt as shown bel
 
 %=== SOLUTION ===
 \begin{solution}
-Using the keyword $largest$, we construct the Playfair matrix below and encrypt.
-\begin{center}
+
+Using the keyword \textit{largest}, we construct the Playfair matrix below 
+and encrypt.
+	\begin{center}
 	\begin{tabular}{ | c | c | c | c | c | }
 		\hline \rowcolor{cyan!40}
 		L & A & R & G & E \\
@@ -205,22 +242,31 @@ Using the keyword $largest$, we construct the Playfair matrix below and encrypt.
 		V & W &   X & Y & Z\\
 		\hline
 	\end{tabular}
-\end{center}
+	\end{center}
 
-	\begin{verbatim}
+\begin{verbatim}
     CIPHER: UZ TB DL GZ PN NW LG TG TU ER OV DL BD UH PF ER HW QS RZ
-	\end{verbatim}
+\end{verbatim}
+
 \end{solution}
 
 
 %=== PART C ====
-\item[c.] How do you account for the results of this problem? Can you generalize your conclusion? [3 points]
+\item[c.] How do you account for the results of this problem? Can you 
+generalize your conclusion? [3 points]
 
 %=== SOLUTION ===
 \begin{solution}
-\newline
+\newline  % Adding empty causes error.
 \begin{minipage}{0.55\linewidth}
-The Playfair matrix can be thought of as a torus $\mathcal{T}$ by folding and gluing the vertical edges to each other and the same with the horizontal edges. The figure to the right shows the two Playfair matrices from parts \textbf{a} and \textbf{b}, outlined in red and blue. Notice that they both generate $\mathcal{T}$. It makes sense that our ciphertexts for parts \textbf{a} and \textbf{b} were the same. If we wanted different ciphertexts, we'd need to swap rows or columns of the Playfair matrix. This wouldn't be equivalent to any shift and thus providing a new ciphertext.
+The Playfair matrix can be thought of as a torus $\mathcal{T}$ by folding and 
+gluing the vertical edges to each other and the same with the horizontal edges. 
+The figure to the right shows the two Playfair matrices from parts \textbf{a} 
+and \textbf{b}, outlined in red and blue. Notice that they both generate 
+$\mathcal{T}$. It makes sense that our ciphertexts for parts \textbf{a} and 
+\textbf{b} were the same. If we wanted different ciphertexts, we'd need to 
+swap rows or columns of the Playfair matrix. This wouldn't be equivalent to any 
+shift and thus providing a new ciphertext.
 \end{minipage}
 \quad
 \begin{minipage}{0.4\linewidth}
@@ -260,21 +306,25 @@ The Playfair matrix can be thought of as a torus $\mathcal{T}$ by folding and gl
 %%=============================================================================
 
 \subsection*{Problem 3.14}
+
 \begin{description}
 
 %=== PART A ====
-\item[a.] Encrypt the message "meet me at the usual place at ten rather than eight o clock" using the Hill cipher with the key 
-$\left[ \begin{array}{ c c }
-	7 & 3 \\ 2 & 5
-	\end{array} \right]$
+\item[a.] Encrypt the message "meet me at the usual place at ten rather than 
+eight o clock" using the Hill cipher with the key 
+$\begin{bmatrix} 7 & 3 \\ 2 & 5 \end{bmatrix}$
 . Show your calculations and the result. [3 points]
 
 %=== SOLUTION ===
 \begin{solution}
-Since the Hill cipher matrix $K \in \mathbb{Z}^{2 \times 2}$, we'll rewrite the plaintext into digrams and convert to numeric. We'll also pad the string with 'x' at the end to achieve an even length.
-	\begin{verbatim}
+
+Since the Hill cipher matrix $K \in \mathbb{Z}^{2 \times 2}$, we'll rewrite the 
+plaintext into digrams and convert to numeric. We'll also pad the string with 
+'x' at the end to achieve an even length.
+\begin{verbatim}
     plain: me et me at th eu su al pl ac ea tt en ra th er th an ei gh to cl oc kx
-	\end{verbatim}
+\end{verbatim}
+
 This gives us the following list of vectors $p_i$ for $1 \leq i \leq 24$:
 \begin{align*}
 	(12,4), (4,19), (12,4), (0,19), (19,7), (4,20),& 
@@ -286,62 +336,59 @@ This gives us the following list of vectors $p_i$ for $1 \leq i \leq 24$:
 To encrypt, let $p_i$ be the $i^{\text{th}}$ row of matrix $P$ so that
 \begin{align*}
 	PK =& 
-	\left[ \begin{array}{ *{8}{c} }
+	\begin{bmatrix}
 		12 & 4 & 12 & 0 & 19 & \dots & 14 & 10 \\
 		4 & 19 & 4 & 19 & 7 & \dots & 2 & 23
-	\end{array} \right]^T
-	\left[ \begin{array}{ c c }
-		7 & 3 \\ 2 & 5
-	\end{array}\right] 
-		\pmod{26} \\
-	\equiv& \left[ \begin{array}{ *{8}{c} }
+	\end{bmatrix}^T
+	\begin{bmatrix} 7 & 3 \\ 2 & 5 \end{bmatrix} 
+	\tmod{26} \\
+	\equiv& 
+	\begin{bmatrix}
 		14 & 14 & 14 & 12 & 17 & \dots & 24 & 12 \\
 		4 & 3 & 4 & 17 & 14 & \dots & 0 & 15
-	\end{array}\right]^T 
-		= \; C.
+	\end{bmatrix}^T 
+	= \; C.
 \end{align*}
 
-We now convert each row $c_i$ of $C$ to alphabet characters to get the ciphertext below.
-	\begin{verbatim}
+We now convert each row $c_i$ of $C$ to alphabet characters to get the 
+ciphertext below.
+\begin{verbatim}
     CIPHER: OE OD OE MR QI KY WD XW EK CM PW CZ PZ RO AN SA EB FX KJ YA MP
-	\end{verbatim}
+\end{verbatim}
 
 \end{solution}
 
 
 %=== PART B ====
-\item[b.] Show the calculations for the corresponding decryption of the ciphertext to recover the original plaintext. [3 points]
+\item[b.] Show the calculations for the corresponding decryption of the 
+ciphertext to recover the original plaintext. [3 points]
 
 %=== SOLUTION ===
 \begin{solution}
-For decryption, compute $\det(K) = 29 \equiv 3 \pmod{26}$. Since $9 = 3^{-1} \pmod{26}$, we have
+
+For decryption, compute $\det(K) = 29 \equiv 3 \tmod{26}$. Since 
+$9 = 3^{-1} \tmod{26}$, we have
 	$$K^{-1} = 9
-	\begin{bmatrix}
-		5 & -3 \\ -2 & 7
-	\end{bmatrix} 
+	\begin{bmatrix} 5 & -3 \\ -2 & 7 \end{bmatrix} 
 	\equiv
-	\begin{bmatrix}
-		19 & 25 \\ 8 & 11
-	\end{bmatrix} 
-	\pmod{26}.$$
-	
+	\begin{bmatrix} 19 & 25 \\ 8 & 11 \end{bmatrix} 
+	\tmod{26}.$$
+
 To obtain the plaintext, we simply take the product	
 \begin{align*}
 	CK^{-1} =& 
-	\left[ \begin{array}{ *{8}{c} }
+	\begin{bmatrix}
 		14 & 14 & 14 & 12 & 17 & \dots & 24 & 12 \\
 		4 & 3 & 4 & 17 & 14 & \dots & 0 & 15
-	\end{array} \right]^T
-	\left[ \begin{array}{ c c }
-		19 & 25 \\ 8 & 11
-	\end{array}\right] 
-		\pmod{26} \\
+	\end{bmatrix}^T
+	\begin{bmatrix} 19 & 25 \\ 8 & 11 \end{bmatrix}
+	\tmod{26} \\
 	\equiv& 
-	\left[ \begin{array}{ *{8}{c} }
+	\begin{bmatrix}
 		12 & 4 & 12 & 0 & 19 & \dots & 14 & 10 \\
 		4 & 19 & 4 & 19 & 7 & \dots & 2 & 23
-	\end{array}\right]^T 
-		= P.
+	\end{bmatrix}
+	= P.
 \end{align*}
 
 This recovers plaintext matrix $P$ from part \textbf{a}.
@@ -359,6 +406,7 @@ This recovers plaintext matrix $P$ from part \textbf{a}.
 %%=============================================================================
 
 \subsection*{Problem 3.18}
+
 \begin{description}
 
 %=== PART B ====
@@ -372,9 +420,14 @@ This recovers plaintext matrix $P$ from part \textbf{a}.
 
 %=== SOLUTION ===
 \begin{solution}
-Denote matrix $A$. To compute $A^{-1}$ mod 26, we first need the determinant.
+
+Denote matrix $A$. To compute $A^{-1} \tmod{26}$, we first need the 
+determinant.
 	$$\det(A) = 
-	6(16 \cdot 15 - 17 \cdot 10) - 24(13 \cdot 15 - 20 \cdot 10) + (13 \cdot 17 - 20 \cdot 16) \equiv 25 \pmod{26}$$
+	6(16 \cdot 15 - 17 \cdot 10) 
+	- 24(13 \cdot 15 - 20 \cdot 10) 
+	+ (13 \cdot 17 - 20 \cdot 16) 
+	\equiv 25 \tmod{26}$$
 
 We can then find the cofactors of 
 	$A^T = 
@@ -407,8 +460,7 @@ This allows us to create the adjoint matrix
 		-99 &  378 & -216
 	\end{bmatrix}.$$
 
-Lastly, notice that $25 \cdot 25 \equiv 1 \pmod{26}$ so we take the product
-
+Lastly, notice that $25 \cdot 25 \equiv 1 \tmod{26}$ so we take the product
 	$$(\det(A))^{-1} \cdot \text{adj}(A) 
 	= 25 \cdot \text{adj}(A) 
 	\equiv 
@@ -417,14 +469,14 @@ Lastly, notice that $25 \cdot 25 \equiv 1 \pmod{26}$ so we take the product
 		21 &  8 & 21 \\ 
 		21 & 12 & 8
 	\end{bmatrix} 
-	\pmod{26} = A^{-1}.$$
+	\tmod{26} = A^{-1}.$$
 
 \end{solution}
 
 \end{description}
 
 
-\vspace{0.5cm}
+\newpage
 
 
 %%=============================================================================
@@ -432,20 +484,21 @@ Lastly, notice that $25 \cdot 25 \equiv 1 \pmod{26}$ so we take the product
 %%=============================================================================
 
 \subsection*{Problem 3.19}
-Using the Vigenère cipher, encrypt the word "explanation" using the word "leg". [3 points]
 
+Using the Vigenère cipher, encrypt the word "explanation" using the word 
+"leg". [3 points]
 
 %=== SOLUTION ===
 \begin{solution}
-Begin by repeating the keyword over the plaintext as shown below.
 
+Begin by repeating the keyword over the plaintext as shown below.
 \begin{verbatim}
     key:    legleglegle
     plain:  explanation
 \end{verbatim}
 
-\noindent We can then perform the required shifts by taking the sum mod 26.
-\begin{center}
+We can then perform the required shifts by taking the sum mod 26.
+	\begin{center}
 	\begin{tabular}{ *{12}{| c } | }
 		\hline
 		   key & 11 &  4 &  6 & 11 & 4 &  6 & 11 &  4 &  6 & 11 &  4 \\
@@ -455,13 +508,13 @@ Begin by repeating the keyword over the plaintext as shown below.
 		CIPHER & 15 &  1 & 21 & 22 & 4 & 19 & 11 & 23 & 14 & 25 & 17 \\
 		\hline
 	\end{tabular}
-\end{center}
+	\end{center}
 
-\noindent Encryption is completed by writing the numerical values into an alphabetic ciphertext.
-
-	\begin{verbatim}
+Encryption is completed by writing the numerical values into an alphabetic 
+ciphertext.
+\begin{verbatim}
     CIPHER: PBVWETLXOZR
-	\end{verbatim}
+\end{verbatim}
 
 \end{solution}
 
@@ -474,8 +527,10 @@ Begin by repeating the keyword over the plaintext as shown below.
 %%=============================================================================
 
 \subsection*{Problem A}
-A precursor to the ADFGVX cipher was the ADFGX cipher which used a table such as this:
-\begin{center}
+
+A precursor to the ADFGVX cipher was the ADFGX cipher which used a table such 
+as this:
+	\begin{center}
 	\begin{tabular}{ c | c c c c c }
 		  & A &  D  & F & G & X \\
 		\hline
@@ -485,11 +540,13 @@ A precursor to the ADFGVX cipher was the ADFGX cipher which used a table such as
 		G & g & i/j & c & u & x \\
 		X & m &  r  & e & w & y 
 	\end{tabular}
-\end{center}
+	\end{center}
 
-\noindent Encrypt the phrase "neither do they spin" below. Use the grid on the left below to write the two-letter substitutions row-wise. Then rearrange the columns so that the column headers are in alphabetical order in the grid on the right.
-
-\begin{center}
+Encrypt the phrase "neither do they spin" below. Use the grid on the left 
+below to write the two-letter substitutions row-wise. Then rearrange the 
+columns so that the column headers are in alphabetical order in the grid on 
+the right.
+	\begin{center}
 	\begin{tabular}{ || c | c | c | c | c || }
 		\hline
 		\textbf{M} & \textbf{E} & \textbf{R} & \textbf{I} & \textbf{T} \\
@@ -506,15 +563,16 @@ A precursor to the ADFGVX cipher was the ADFGX cipher which used a table such as
 		\hline & & & & \\ \hline & & & & \\
 		\hline & & & & \\ \hline
 	\end{tabular}
-\end{center}
+	\end{center}
 
-\noindent Write the ciphertext by reading out the grid on the right column-wise. [3 points]
-
+Write the ciphertext by reading out the grid on the right 
+column-wise. [3 points]
 
 %=== SOLUTION ===
 \begin{solution}
+
 Using the provided ADFGX table, fill out the two tables below.
-\begin{center}
+	\begin{center}
 	\begin{tabular}{ || c | c | c | c | c || }
 		\hline
 		\textbf{M} & \textbf{E} & \textbf{R} & \textbf{I} & \textbf{T} \\
@@ -554,12 +612,12 @@ Using the provided ADFGX table, fill out the two tables below.
 		D & X & G & F & \\
 		\hline
 	\end{tabular}
-\end{center}
-Thus, we have the encryption of the phrase "neither do they spin" below.
+	\end{center}
 
-	\begin{verbatim}
+Thus, we have the encryption of the phrase "neither do they spin" below.
+\begin{verbatim}
     CIPHER: XAFDDFDFDDAFAXFDXADXGXDXFXGFGDDDXX
-	\end{verbatim}
+\end{verbatim}
 
 \end{solution}
 
@@ -572,14 +630,15 @@ Thus, we have the encryption of the phrase "neither do they spin" below.
 %%=============================================================================
 
 \subsection*{Problem B}
+
 Decrypt the following permutation substitution cipher. [3 points]
 
 % ciphertext from file
 \VerbatimInput[xleftmargin=15pt]{scripts/hw01/b_cipher}
 
-
 %=== SOLUTION ===
 \begin{solution}
+
 Begin by analyzing the frequency distribution using C.
 
 % vscode snippet
@@ -606,10 +665,11 @@ Begin by analyzing the frequency distribution using C.
 \end{axis}
 \end{tikzpicture}
 
-\noindent The frequency distribution is very close to that of a monoalphabetic cipher. We can begin to take guesses for certain letters based on the distribution. Notice, there is an 11-letter word repeated twice with a 5-letter prefix.
+The frequency distribution is very close to that of a monoalphabetic cipher. 
+We can begin to take guesses for certain letters based on the distribution. 
+Notice, there is an 11-letter word repeated twice with a 5-letter prefix.
 
-	\begin{BVerbatim}[commandchars=\\\{\}]
-
+\begin{BVerbatim}[commandchars=\\\{\}]
 
     CIPHER: EMGLOSUDCGDNCUSWYSFHNSFCYKDPUMLWGYICOXYSIPJCKQPKUGKMGOLICGINCGACKSNI
     plain:          e   e     t   te           e       e            e   e  e
@@ -623,16 +683,18 @@ Begin by analyzing the frequency distribution using C.
     CIPHER: \textcolor{red}{FZCCNDGYYSF}  EUEKUZCSOC  \textcolor{red}{FZCCN}  CIACZEJNCSHFZEJZEGMXCYHCJUMGKUCY
     plain:  thee      t       he  e  thee   e  eh   e  th  h    e  e      e
 	
-	\end{BVerbatim}
+\end{BVerbatim}
 
-\noindent The prefix \verb|thee| suggests that \verb|F| probably does not correspond to \verb|t|. Consider the word {\color{red}\verb|wheel|} instead and use this to begin making some assertions and decrypt as shown below.
+The prefix \verb|thee| suggests that \verb|F| probably does not correspond to 
+\verb|t|. Consider the word {\color{red}\verb|wheel|} instead and use this to 
+begin making some assertions and decrypt as shown below.
 
-	\begin{verbatim}
+\begin{verbatim}
     i may not be able to grow flowers but my garden produces just as many dead leave sold 
     over shoes pieces of rope and bushels of dead grass as any bodys and today i bought a 
-    wheelbarrow to help in clearing it up i have always loved and respected the wheelbarrow 
-    it is the one wheeled vehicle of which i am perfect master
-	\end{verbatim}
+    wheelbarrow to help in clearing it up i have always loved and respected the 
+    wheelbarrow it is the one wheeled vehicle of which i am perfect master
+\end{verbatim}
 
 \end{solution}
 
@@ -645,15 +707,18 @@ Begin by analyzing the frequency distribution using C.
 %%=============================================================================
 
 \subsection*{Problem C}
-Decrypt the following Vigenère ciphertext using the Index of Coincidence method. [3 points]
+
+Decrypt the following Vigenère ciphertext using the Index of Coincidence 
+method. [3 points]
 
 % ciphertext from file
 \VerbatimInput[xleftmargin=15pt]{scripts/hw01/c_cipher}
 
-
 %=== SOLUTION ===
 \begin{solution}
-We begin by testing keyword periods and analyzing their corresponding Index of Coincidences.
+
+We begin by testing keyword periods and analyzing their corresponding Index of 
+Coincidences.
 
 % vscode snippet
 \lstinputlisting[
@@ -663,7 +728,8 @@ We begin by testing keyword periods and analyzing their corresponding Index of C
 
 \newpage
 
-\noindent The maximum of \verb|avgs| yields 10 but it's clear from the results below that 20 is also a possible period.
+The maximum of \verb|avgs| yields 10 but it's clear from the results below 
+that 20 is also a possible period.
 
 \begin{minipage}{0.25\linewidth}
 	\begin{tabular}{ c c }
@@ -698,7 +764,10 @@ We begin by testing keyword periods and analyzing their corresponding Index of C
 
 \vspace{0.5cm}
 
-\noindent We choose a period of 10 and try the 26 monoalphabetic ciphers to every 10th letter of the ciphertext to obtain the Chi-Square statistics. To do so, we need the most current frequency distribution according to Peter Norvig in 2012 (\url{http://norvig.com/mayzner.html}).
+We choose a period of 10 and try the 26 monoalphabetic ciphers to every 10th 
+letter of the ciphertext to obtain the Chi-Square statistics. To do so, we 
+need the most current frequency distribution according to Peter Norvig in 
+2012 (\url{http://norvig.com/mayzner.html}).
 
 % vscode snippet
 \lstinputlisting[
@@ -716,7 +785,8 @@ We begin by testing keyword periods and analyzing their corresponding Index of C
 
 \newpage
 
-\noindent Notice that \verb|setFrequency| was defined in the previous page. The values of \verb|shift| and \verb|chi_vals| are shown below.
+Notice that \verb|setFrequency| was defined in the previous page. The values 
+of \verb|shift| and \verb|chi_vals| are shown below.
 
 \begin{center}
 \begin{tabular}{ c c c }
@@ -733,7 +803,9 @@ We begin by testing keyword periods and analyzing their corresponding Index of C
 \end{tabular}
 \end{center}
 
-\noindent This suggest that the letter \verb|f| was used to encode every 10th plaintext letter. Hence, it is likely the first letter of the keyword. The full Chi-Square analysis yields the keyword \verb|fluxionate|.
+This suggest that the letter \verb|f| was used to encode every 10th plaintext 
+letter. Hence, it is likely the first letter of the keyword. The full 
+Chi-Square analysis yields the keyword \verb|fluxionate|.
 
 % vscode snippet
 \lstinputlisting[
@@ -741,7 +813,7 @@ We begin by testing keyword periods and analyzing their corresponding Index of C
 	linerange = {201-216},
 	]{hw01/ioc.c}
 
-\noindent The full decrypt is shown below with spacing and punctuation applied.
+The full decrypt is shown below with spacing and punctuation applied.
 
 % plaintext from file
 \VerbatimInput[xleftmargin=15pt]{scripts/hw01/c_plain}
@@ -757,15 +829,17 @@ We begin by testing keyword periods and analyzing their corresponding Index of C
 %%=============================================================================
 
 \subsection*{Problem D}
+
 Decrypt the following affine cipher. [3 points]
 
 % ciphertext from file
 \VerbatimInput[xleftmargin=15pt]{scripts/hw01/d_cipher}
 
-
 %=== SOLUTION ===
 \begin{solution}
-Using scripts from previous problems, it's simple to generate our frequency distribution.
+
+Using scripts from previous problems, it's simple to generate our frequency 
+distribution.
 
 \begin{tikzpicture}
 	\begin{axis}[
@@ -783,25 +857,19 @@ Using scripts from previous problems, it's simple to generate our frequency dist
 	\end{axis}
 \end{tikzpicture}
 
-\noindent From the frequency, it's likely that \verb|C| and \verb|B| are ciphers for \verb|e| and \verb|t| respectively. Assume this is true and solve the system below.
-
-	$$\begin{bmatrix}
-		4 & 1 \\ 19 & 1
-	\end{bmatrix}
-	\begin{bmatrix}
-		a \\ b
-	\end{bmatrix}
+From the frequency, it's likely that \verb|C| and \verb|B| are ciphers for 
+\verb|e| and \verb|t| respectively. Assume this is true and solve the system 
+below.
+	$$\begin{bmatrix} 4 & 1 \\ 19 & 1 \end{bmatrix}
+	\begin{bmatrix} a \\ b \end{bmatrix}
 	\equiv
-	\begin{bmatrix}
-		2 \\ 1
-	\end{bmatrix}
-	\pmod{26} 
+	\begin{bmatrix} 2 \\ 1 \end{bmatrix}
+	\tmod{26} 
 	\qquad \Rightarrow \qquad
-	\begin{matrix}
-		a = 19 \\ b = 4
-	\end{matrix}$$
+	\begin{matrix} a = 19 \\ b = 4 \end{matrix}$$
 
-\noindent Attempt decrypting by implementing $D([19,4],C) := 11(C-4) \equiv p \pmod{26}$ in the script below.
+Attempt decrypting by implementing 
+$D([19,4],C) := 11(C-4) \equiv p \tmod{26}$ in the script below.
 
 % vscode snippet
 \lstinputlisting[
@@ -811,7 +879,8 @@ Using scripts from previous problems, it's simple to generate our frequency dist
 	xleftmargin = -5pt     % tab from beginning
 	]{hw01/show_outputs.c}
 
-\noindent By introducing spacing to the plaintext generated, we see that our guess worked since this yields the Canadian anthem!
+By introducing spacing to the plaintext generated, we see that our guess 
+worked since this yields the Canadian anthem!
 
 \VerbatimInput[xleftmargin=15pt]{scripts/hw01/d_plain}
 

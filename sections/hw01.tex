@@ -100,13 +100,24 @@ From the decrypt, we know the correspondence below:
 
 \noindent The keyword must have a length of 6 so that \verb|A| and \verb|B| 
 line up horizontally.
-% TODO: Maybe minipages with one big Rightarrow?.
-\begin{verbatim}
-            S P U T ? I ?                  S P U T N I K
-            A B ? D E F G        =>        A B C D E F G
-            H J ? M O Q ?        =>        H J L M O Q R
-            V W X Y Z                      V W X Y Z
-\end{verbatim}
+
+\begin{minipage}{0.3\linewidth}
+	\begin{verbatim}
+            S P U T ? I ?
+            A B ? D E F G
+            H J ? M O Q ?
+            V W X Y Z    
+	\end{verbatim}
+\end{minipage}
+\qquad {\Huge $\Rightarrow$} \qquad
+\begin{minipage}{0.3\linewidth}
+	\begin{verbatim}
+    S P U T N I K
+    A B C D E F G
+    H J L M O Q R
+    V W X Y Z
+	\end{verbatim}
+\end{minipage}
 
 \noindent With little effort, we see the keyword is \verb|SPUTNIK|.
 
@@ -423,11 +434,7 @@ This recovers plaintext matrix $P$ from part \textbf{a}.
 
 Denote matrix $A$. To compute $A^{-1} \tmod{26}$, we first need the 
 determinant.
-	$$\det(A) = 
-	6(16 \cdot 15 - 17 \cdot 10) 
-	- 24(13 \cdot 15 - 20 \cdot 10) 
-	+ (13 \cdot 17 - 20 \cdot 16) 
-	\equiv 25 \tmod{26}$$
+	$$\det(A) = 441 \equiv 25 \tmod{26}$$
 
 We can then find the cofactors of 
 	$A^T = 

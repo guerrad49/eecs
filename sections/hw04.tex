@@ -13,12 +13,13 @@ Find the multiplicative inverse of each nonzero element in $\mathbb{Z}_7$.
 
 %=== SOLUTION ===
 \begin{solution}
-We could use the Extended Euclidean algorithm to find the inverses but because 
-the cardinality of $\mathbb{Z}_7$ is small, we take a quick naive approach. 
-Notice that $2 \cdot 4 \equiv 1 \tmod{7}$ and $3 \cdot 5 \equiv 1 \tmod{7}$. 
-Using the results of a past assignment, $x^2 \equiv 1 \tmod{7}$ implies that 
-$x = 1, 6$. Hence we have 2 and 4 are multiplicative inverses; so are 3 and 5. 
-Lastly, 1 and 6 are their own multiplicative inverses.
+The equivalences below show the multiplicative inverses.
+\begin{align*}
+	1^2 \; \equiv& \; 1 \tmod{7} \\
+	2 \cdot 4 \; = \; 8 \; \equiv& \; 1 \tmod{7} \\
+	3 \cdot 5 \; = \; 15 \; \equiv& \; 1 \tmod{7} \\
+	6^2 = 36 \; \equiv& \; 1 \tmod{7}
+\end{align*}
 \end{solution}
 
 
@@ -46,8 +47,11 @@ We may write $f(x) = ax^{m} + f_1(x)$ and $g(x) = bx^{n} + g_1(x)$ for
 $m,n \in \mathbb{Z}^+$ and $a,b \in \mathbb{Z}$, such that $\deg(f_1) < m$ and 
 $\deg(g_1) < n$. If $m$ or $n$ equal 0, then $f_1$ or $g_1$ equal 0 
 respectively. Then 
-	$$f(x) \cdot g(x) = (ax^m + f_1(x))(bx^n + g_1(x)) 
-	= abx^{m+n} + ax^mg_1(x) + bx^nf_1(x) + f_1(x)g_1(x).$$ 
+\begin{align*}
+	f(x) \; \cdot& \; g(x) \\
+	(ax^m + f_1(x))&(bx^n + g_1(x)) \\
+	abx^{m+n} \; + \; ax^mg_1(x) \; +& \; bx^nf_1(x) \; + \; f_1(x)g_1(x).
+\end{align*}
 Notice that $\deg(ax^mg_1), \deg(bx^nf_1), \deg(f_1g_1) < m + n$. Since $F$ 
 is a field, then $f \cdot g \in F$. Furthermore, $\deg(f \cdot g) = m + n$.
 \end{solution}
@@ -91,22 +95,18 @@ $m(x) = x^4 + x + 1$.
 \begin{solution}
 
 It's simple enough to use the \textbf{Extended Euclidean Algorithm} to solve 
-this problem.
+this problem. First we perform successive Euclidean divisions.
+\begin{align*}
+	x^4 + x + 1 \; =& \; x(x^3 + x + 1) + (x^2 + 1) \\
+	x^3 + x + 1 \; =& \; x(x^2+ 1) + 1
+\end{align*}
 
-\begin{minipage}{0.45\linewidth}
-	\begin{align*}
-		x^4 + x + 1 =& x(x^3 + x + 1) + (x^2 + 1) \\
-		x^3 + x + 1 =& x(x^2+ 1) + 1
-	\end{align*}
-\end{minipage}
-\quad
-\begin{minipage}{0.45\linewidth}
-	\begin{align*}
-		1 =& (x^3 + x + 1) - x(x^2 + 1) \\
-		=& (x^3 + x + 1) - x[(x^4 + x+ 1) - x(x^3 + x + 1)] \\
-		=& (1 + x^2)(x^3 + x + 1) - x(x^4 + x + 1)
-	\end{align*}
-\end{minipage}
+Then we express as a linear combination by back-solving.
+\begin{align*}
+	1 =& \; (x^3 + x + 1) - x(x^2 + 1) \\
+	=& \; (x^3 + x + 1) - x[(x^4 + x+ 1) - x(x^3 + x + 1)] \\
+	=& \; (1 + x^2)(x^3 + x + 1) - x(x^4 + x + 1)
+\end{align*}
 
 \noindent Thus, we have $(x^3+x+1)^{-1} = x^2 + 1$ in 
 $\mathbb{Z}_2[x]/<x^4+x+1>$.

@@ -49,8 +49,8 @@ that $\phi(n) = |Z^*_n|$ is Euler's totient function.)
 
 %=== SOLUTION ===
 \begin{solution}
-Notice that $1525 = 5^2 \cdot 61$, so that 
-$\phi(1525) = 1525(1 - 1/5)(1 - 1/61) = 1200.$
+We first factor $1525 = 5^2 \cdot 61$. Then 
+	$$\phi(1525) = 1525(1 - 1/5)(1 - 1/61) = 1200.$$
 \end{solution}
 
 
@@ -60,21 +60,23 @@ $\phi(1525) = 1525(1 - 1/5)(1 - 1/61) = 1200.$
 %=== SOLUTION ===
 \begin{solution}
 
-Solve the congruence $27x \equiv 1 \tmod{41}$ as shown below.
+To solve the congruence $27x \equiv 1 \tmod{41}$, start by performing a 
+succession of Euclidan divisions.
+\begin{align*}
+	41 \; =& \; 1 \cdot 27 + 14 \\
+	27 \; =& \; 1 \cdot 14 + 13 \\
+	14 \; =& \; 1 \cdot 13 + 1
+\end{align*}
 
-\begin{multicols}{2}
-\noindent
-	\begin{align*}
-		41 \; =& \; 1 \cdot 27 + 14 \\
-		27 \; =& \; 1 \cdot 14 + 13 \\
-		14 \; =& \; 1 \cdot 13 + 1
-	\end{align*}
-	\begin{align*}
-		1 \; =& \; 14 - 13 \; = \; 41 - 27 - (27 - 14) \\
-		=& \; 41 - 2 \cdot 27 + (41 - 27) \\
-		=& \; 2 \cdot 41 {\color{red}- 3} \cdot 27
-	\end{align*}
-\end{multicols}
+Then we can substitute the successive remainders until we have expressed the 
+two original numbers as a linear combination.
+\begin{align*}
+	1 \; =& \; 14 \; - \; 13 \\
+	=& (41 - 27) \; - \; (27 - 14) \\
+	=& \; 41 \; - \; 2 \cdot 27 \; + \; 14 \\
+	=& \; 41 \; - \; 2 \cdot 27 \; + \; (41 - 27) \\
+	=& \; 2 \cdot 41 \; {\color{red}-} \; {\color{red}3} \cdot 27
+\end{align*}
 
 Thus $x = -3 \equiv 38 \tmod{41}$ is the multiplicative inverse of 27 in 
 $\mathbb{Z}_{41}$.

@@ -1,12 +1,11 @@
 \documentclass[../hw_sols.tex]{subfiles}
 \setlist[description]{style = unboxed, leftmargin = 0.55cm}
 
-
 \begin{document}
 
-%%=============================================================================
-%%============================== PROBLEM 4.2 ==================================
-%%=============================================================================
+% =============================================================
+% ======================== PROBLEM 4.2 ========================
+% =============================================================
 	
 \subsection*{Problem 4.2}
 
@@ -14,20 +13,20 @@ Consider a Feistel cipher composed of sixteen rounds with a block length of
 128 bits and a key length of 128 bits. Suppose that, for a given $k$, the key 
 scheduling algorithm determines values for the first eight round keys, 
 $k_1, k_2, \dots k_8$, and then sets
-	$$k_9 = k_8, k_{10} = k_7, k_{11} = k_6, \dots, k_{16} = k_1$$
+	\[ k_9 = k_8, k_{10} = k_7, k_{11} = k_6, \dots, k_{16} = k_1 \]
 Suppose you have a ciphertext $c$. Explain how, with access to an encryption 
-oracle, you can decrypt $c$ and determine $m$ using just a single oracle query. 
-This shows that such a cipher is vulnerable to a chosen plaintext attack. (An 
-encryption oracle can be thought of as a device that, when given a plaintext, 
-returns the corresponding ciphertext. The internal details of the device are 
-not known to you and you cannot break open the device. You can only gain 
-information from the oracle by making queries to it and observing its 
-responses.)
+oracle, you can decrypt $c$ and determine $m$ using just a single oracle 
+query. This shows that such a cipher is vulnerable to a chosen plaintext 
+attack. (An encryption oracle can be thought of as a device that, when given 
+a plaintext, returns the corresponding ciphertext. The internal details of 
+the device are not known to you and you cannot break open the device. You 
+can only gain information from the oracle by making queries to it and 
+observing its responses.)
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 If we are given a subkey sequence 
-	$$k_1 k_2 \dots k_8 k_8 \dots k_2 k_1,$$ 
+	\[ k_1 k_2 \dots k_8 k_8 \dots k_2 k_1 \]
 the Feistel encryption and decryption algorithms become identical. This is 
 due to the symmetry of the subkey sequence. Thus, with access to an 
 encryption oracle and knowledge of a ciphertext $\mathbf{c}$, we simply query 
@@ -38,9 +37,9 @@ $E(\mathbf{c}) = D(\mathbf{c}) = \mathbf{m}$.
 \newpage
 
 
-%%=============================================================================
-%%============================== PROBLEM 4.5 ==================================
-%%=============================================================================
+% =============================================================
+% ======================== PROBLEM 4.5 ========================
+% =============================================================
 
 \subsection*{Problem 4.5}
 
@@ -49,24 +48,26 @@ its security. To see this, suppose that we have a linear block cipher $EL$
 that encrypts 256-bit blocks of plaintext into 256-bit blocks of ciphertext. 
 Let $EL(k, m)$ denote the encryption of a 256-bit message $m$ under a key $k$ 
 (the actual bit length of $k$ is irrelevant). Thus,
-	$$EL(k,[m_1 \oplus m_2]) = 
-	EL(k,m_1) \oplus EL(k,m_2) \text{ for all 128-bit patterns } m_1,m_2.$$
-Describe how, with 256 chosen ciphertexts, an adversary can decrypt any 
-ciphertext without knowledge of the secret key $k$. (A “chosen ciphertext” 
-means that an adversary has the ability to choose a ciphertext and then obtain 
-its decryption. Here, you have 256 plaintext/ciphertext pairs to work with and 
-you have the ability to choose the value of the ciphertexts.)
+	\[ EL(k,[m_1 \oplus m_2]) = EL(k,m_1) \oplus EL(k,m_2) \]
+for all 128-bit patterns $m_1, m_2$. Describe how, with 256 chosen 
+ciphertexts, an adversary can decrypt any ciphertext without knowledge of the 
+secret key $k$. (A “chosen ciphertext” means that an adversary has the 
+ability to choose a ciphertext and then obtain its decryption. Here, you have 
+256 plaintext/ciphertext pairs to work with and you have the ability to 
+choose the value of the ciphertexts.)
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 Consider the set of ciphertexts $\mathcal{C}$. Let $c_i \in \{0,1\}^{128}$ 
 with $1 \leq i \leq 128$ be the chosen ciphertexts.  Each $c_i$ has one in 
-the $i^{th}$ position, zeros elsewhere and a corresponding plaintext $m_i$. So
-	$$EL(k,\mathbf{m}) 
+the $i^{th}$ position, zeros elsewhere and a corresponding plaintext $m_i$. 
+So
+	\[ EL(k,\mathbf{m}) 
 	= EL \left( k, \bigoplus_{i=1}^n m_i \right) 
-	\stackrel{linearity}{=\joinrel=\joinrel=} \bigoplus_{i=1}^n EL(k,m_i) 
+	\stackrel{linearity}{=\joinrel=\joinrel=} 
+	\bigoplus_{i=1}^n EL(k,m_i) 
 	= \bigoplus_{i=1}^n c_i 
-	= \mathbf{c}$$
+	= \mathbf{c} \]
 where $1 \leq n \leq 128$ describes encryption. More importantly, 
 $\displaystyle \bigoplus_{i=1}^n m_i$ corresponds to $\mathbf{c}$ and the 
 adversary can easily compute $\mathbf{m}$. Note that 
@@ -77,14 +78,14 @@ $EL(k,\mathbf{0}) = \mathbf{0}$.
 \newpage
 
 
-%%=============================================================================
-%%============================== PROBLEM 4.6 ==================================
-%%=============================================================================
+% =============================================================
+% ======================== PROBLEM 4.6 ========================
+% =============================================================
 
 \subsection*{Problem 4.6}
 
-Suppose the DES F function mapped every 32-bit input R, regardless of the value 
-of the input K, to \textbf{a} and \textbf{b}.
+Suppose the DES F function mapped every 32-bit input R, regardless of the 
+value of the input K, to \textbf{a.} and \textbf{b.}.
 \begin{enumerate}
 	\item What function would DES then compute?
 	\item What would the decryption look like?
@@ -92,22 +93,23 @@ of the input K, to \textbf{a} and \textbf{b}.
 
 \begin{description}
 
-%=== PART A ====
+% ==== PART A ====
 \item[a.] 32-bit string of zero
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 
-For message $\mathbf{M}$, we have IP$(\mathbf{M}) = L_0 \Vert R_0$ and observe 
-one round of DES encryption below [left].
+For message $\mathbf{M}$, we have IP$(\mathbf{M}) = L_0 \Vert R_0$ and 
+observe one round of DES encryption below [left].
 
 \begin{multicols}{3}
-	\hfill   % flush right
-	\includestandalone[scale=0.75]{figures/simple_des_enc}
+	\hfill   % Flush right.
+	\includestandalone[mode=buildmissing, scale=0.75]
+		{figures/simple_des_enc}
 
 	\begin{center}
 	\begin{tabular}{ c | c | c }
-		\textbf{Round} & $L_i$ & $R_i$ \\[2pt]   % extra row height
+		\textbf{Round} & $L_i$ & $R_i$ \\[2pt]  % Extra height.
 		\hline
 		IP & $L_0$ & $R_0$ \\[5pt]
 		 1 & $R_0$ & $L_0$ \\[5pt]
@@ -116,13 +118,16 @@ one round of DES encryption below [left].
 	\end{tabular}
 	\end{center}
 
-	\includestandalone[scale=0.75]{figures/simple_des_dec}
+	\includestandalone[mode=buildmissing, scale=0.75]
+		{figures/simple_des_dec}
 \end{multicols}
 
 \vspace{-0.25cm}
 The DES function described is $F(R) = \mathbf{0}$. It's clear from the table 
-above [middle] that $\{L,R\}_0 = \{L,R\}_2 = \{L,R\}_{16}$. To finish 
-encrypting, compute $\text{IP}^{-1}(R_0 \Vert L_0) = \mathbf{C}$.
+above [middle] that \newline 
+$\{L,R\}_0 = \{L,R\}_2 = \{L,R\}_{16}$. 
+To finish encrypting, compute 
+$\text{IP}^{-1}(R_0 \Vert L_0) = \mathbf{C}$.
 
 For decryption, perform at 32-bit swap on IP($\mathbf{C}$) which yields 
 $L_0 \Vert R_0$. One round of decryption, shown above [right], is simply a 
@@ -131,21 +136,21 @@ compute $\text{IP}^{-1}\big( L_0 \Vert R_0 \big) = \textbf{M}$.
 
 \end{solution}
 
-
-%=== PART B ====
+% ==== PART B ====
 \item[b.] R
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 
 The tables below, show encryption on the left and decryption on the right.
 
 \begin{multicols}{2}
+	% ==== COLUMN 1 ====
 	\begin{center}
 	\begin{tabular}{ c | c | c | c }
-		\textbf{Round} & $L_i$ & $R_i$ & Simplified \\[2pt]   % extra row height
+		\textbf{Round} & $L_i$ & $R_i$ & Simplified \\[2pt]  % Extra height.
 		\hline
-		IP & $L_0$ & $R_0$ \\[5pt]
+		IP & $L_0$ & $R_0$            &       \\[5pt]
 		 1 & $R_0$ & $L_0 \oplus R_0$ & $R_1$ \\[5pt]
 		 2 & $R_1$ & $R_0 \oplus R_1$ & $L_0$ \\[5pt]
 		 3 & $L_0$ & $R_1 \oplus L_0$ & $R_0$ \\[5pt]
@@ -153,9 +158,10 @@ The tables below, show encryption on the left and decryption on the right.
 	\end{tabular}
 	\end{center}
 
+	% ==== COLUMN 2 ====
 	\begin{center}
 	\begin{tabular}{ c | c | c | c }
-		\textbf{Round} & $L_i$ & Simplified & $R_i$ \\[2pt]   % extra row height
+		\textbf{Round} & $L_i$ & Simplified & $R_i$ \\[2pt]  % Extra height.
 		\hline
 		16 &               $R_0$ &          & $R_1$    \\[5pt]
 		15 &    $R_0 \oplus R_1$ &    $L_0$ & $R_0$    \\[5pt]
@@ -166,18 +172,19 @@ The tables below, show encryption on the left and decryption on the right.
 	\end{center}
 \end{multicols}
 
-For encryption, have IP($\mathbf{M}) = L_0 \Vert R_0$ with $F(X) = X$ i.e. the 
-identify function. Notice,
-	$$R_{i+1} = L_i \oplus F(R_i) = L_i \oplus R_i.$$
+For encryption, have IP($\mathbf{M}) = L_0 \Vert R_0$ with $F(X) = X$ i.e. 
+the identify function. Notice,
+	\[ R_{i+1} = L_i \oplus F(R_i) = L_i \oplus R_i \]
 Then $\{L,R\}_0 = \{L,R\}_3 = \{L,R\}_{15}$. To finish encrypting, compute
 $\text{IP}^{-1}(R_1 \Vert R_0) = \mathbf{C}$.
 
 To decrypt, certainly $F = F^{-1}$. Begin with 
 $\text{IP}(\mathbf{C}) = R_1 \Vert R_0$ followed by 32-bit swap which yiels 
-$R_0 \Vert R_1$. In this case,
-	$$L_{i-1} = R_{i-1} \oplus R_i.$$
-Then $\{L,R\}_{15} = \{L,R\}_{12} = \{L,R\}_{0}$. To finish decrypting, compute
-$\text{IP}^{-1}\big( L_0 \Vert R_0 \big) = \textbf{M}$.
+$R_0 \Vert R_1$. \newline
+In this case,
+	\[ L_{i-1} = R_{i-1} \oplus R_i \]
+Then $\{L,R\}_{15} = \{L,R\}_{12} = \{L,R\}_{0}$. To finish decrypting, 
+compute $\text{IP}^{-1}\big( L_0 \Vert R_0 \big) = \textbf{M}$.
 
 \end{solution}
 
@@ -187,9 +194,9 @@ $\text{IP}^{-1}\big( L_0 \Vert R_0 \big) = \textbf{M}$.
 \newpage
 
 
-%%=============================================================================
-%%============================== PROBLEM 4.11 =================================
-%%=============================================================================
+% =============================================================
+% ======================== PROBLEM 4.11 =======================
+% =============================================================
 
 \subsection*{Problem 4.11}
 
@@ -199,65 +206,73 @@ plaintext, namely:
 
 \begin{center}
 \begin{tabular} { l c l }
-	\textbf{Hexadecimal notation:} & \qquad & 0 1 2 3 4 5 6 7 8 9 A B C D E F \\
-	\textbf{Binary Notation:} & \qquad & 0000 0001 0010 0011 0100 0101 0110 0111 \\
+	\textbf{Hexadecimal notation:} & \qquad 
+	& 0 1 2 3 4 5 6 7 8 9 A B C D E F \\
+	\textbf{Binary Notation:} & \qquad 
+	& 0000 0001 0010 0011 0100 0101 0110 0111 \\
 	& \qquad & 1000 1001 1010 1011 1100 1101 1110 1111
 \end{tabular}
 \end{center}
 
 \begin{description}
 
-%=== PART A ====
+% ==== PART A ====
 \item[a.] Derive $K_1$, the first-round subkey.
 
-%=== SOLUTION ====
+% ==== SOLUTION =====
 \begin{solution}
 
-The code below computes $K_1$ according to Figure 4.5 in the text.
+The code below computes $K_1$ according to Figure 4.5 in the text. Note that 
+\verb|MASK_LOW_28| and \verb|MASK_LOW_32| mask the low 28 and 32 bits of a 
+bitstring respectively.
 
-% vscode snippet
+% VSCode snippet.
 \lstinputlisting[
-	language = C, style = myCstyle,
-	linerange = {5-6,16-33}
-	]{hw02/des.c}
+	language = C, style = vsLight,
+	linerange = {17-32},
+	firstnumber = 17
+	]{des.c}
 
 The output of our code is the 48-bit key
-	$$\mathbf{K_1} 
+\begin{center}
+	$\mathbf{K_1}$ 
 	= \verb|0x0b02679b49a5|
-	= \verb|000010 110000 001001 100111 100110 110100 100110 100101|$$
+	= \verb|000010 110000 001001 100111 100110 110100 100110 100101|
+\end{center}	
 
 \end{solution}
 
-
-%=== PART B ====
+% ==== PART B ====
 \item[b.] Derive $L_0$, $R_0$.
 
-%=== SOLUTION ====
+% ==== SOLUTION =====
 \begin{solution}
 
 Since $\mathbf{M} = \mathbf{K}$, have:
 
-% vscode snippet
+% VSCode snippet.
 \lstinputlisting[
-	language = C, style = myCstyle,
-	linerange = {37-40},
-	numbersep = -10pt,     % workaround for removing 
-	xleftmargin = -5pt     % tab from beginning
-	]{hw02/des.c}
+	language = C, style = vsLight,
+	linerange = {36-39},
+	firstnumber = 36
+	]{des.c}
 
 \begin{center}
-	$\mathbf{L_0}$ = \verb|0xcc00ccff| = \verb|11001100 00000000 11001100 11111111| \\
-	$\mathbf{R_0}$ = \verb|0xf0aaf0aa| = \verb|11110000 10101010 11110000 10101010|
+	$\mathbf{L_0}$ 
+	= \verb|0xcc00ccff| 
+	= \verb|11001100 00000000 11001100 11111111| \\
+	$\mathbf{R_0}$ 
+	= \verb|0xf0aaf0aa| 
+	= \verb|11110000 10101010 11110000 10101010|
 \end{center}
 
 \end{solution}
 
-
-%=== PART C ====
+% ==== PART C ====
 \item[c.] Expand $R_0$ to get $E[R_0]$, where $E[\cdot]$ is the expansion 
 function of Table S.1.
 
-%=== SOLUTION ====
+% ==== SOLUTION =====
 \begin{solution}
 The result of \verb|applyTransform("expansion", r_zero, 32)| is
 \begin{center}
@@ -271,81 +286,76 @@ The result of \verb|applyTransform("expansion", r_zero, 32)| is
 \newpage
 
 
-%=== PART D ====
+% ==== PART D ====
 \item[d.] Calculate $A = E[R_0] \oplus K_1$.
 
-%=== SOLUTION ====
+% ==== SOLUTION =====
 \begin{solution}
 	$\mathbf{A}$ 
 	= \verb|0x711732e15cf0| 
 	= \verb|01110001 00010111 00110010 11100001 01011100 11110000|
 \end{solution}
 
+% ==== PART E ====
+\item[e.] Group the 48-bit result of (d) into sets of 6 bits and evaluate 
+the corresponding S-box substitutions.
 
-%=== PART E ====
-\item[e.] Group the 48-bit result of (d) into sets of 6 bits and evaluate the 
-corresponding S-box substitutions.
-
-%=== SOLUTION ====
+% ==== SOLUTION =====
 \begin{solution}
 
 Regroup as follows.
-	\begin{center}
-	\begin{tabular}{ c c c c }
-		$\mathbf{B_1}$ = \verb|011100| & $\mathbf{B_2}$ = \verb|010001| &
-		$\mathbf{B_3}$ = \verb|011100| & $\mathbf{B_4}$ = \verb|110010| \\
-		$\mathbf{B_5}$ = \verb|111000| & $\mathbf{B_6}$ = \verb|010101| &
-		$\mathbf{B_7}$ = \verb|110011| & $\mathbf{B_8}$ = \verb|110000|
-	\end{tabular}
-	\end{center}
+\begin{center}
+\begin{tabular}{ c c c c }
+	$\mathbf{B_1}$ = \verb|011100| & $\mathbf{B_2}$ = \verb|010001| &
+	$\mathbf{B_3}$ = \verb|011100| & $\mathbf{B_4}$ = \verb|110010| \\
+	$\mathbf{B_5}$ = \verb|111000| & $\mathbf{B_6}$ = \verb|010101| &
+	$\mathbf{B_7}$ = \verb|110011| & $\mathbf{B_8}$ = \verb|110000|
+\end{tabular}
+\end{center}
 
 Then apply S-box substitutions accordingly.
 
-% vscode snippet
+% VSCode snippet.
 \lstinputlisting[
-	language = C, style = myCstyle,
-	linerange = {55-66},
-	numbersep = -10pt,     % workaround for removing 
-	xleftmargin = -5pt     % tab from beginning
-	]{hw02/des.c}
+	language = C, style = vsLight,
+	linerange = {54-64},
+	firstnumber = 54
+	]{des.c}
 
 This gives us
-	\begin{center}
-	\begin{tabular}{ c c c c }
-		$\mathbf{S(B_1)}$ = \verb|0000| & $\mathbf{S(B_2)}$ = \verb|1100| &  
-		$\mathbf{S(B_3)}$ = \verb|0010| & $\mathbf{S(B_4)}$ = \verb|0001| \\
-		$\mathbf{S(B_5)}$ = \verb|0110| & $\mathbf{S(B_6)}$ = \verb|1101| &
-		$\mathbf{S(B_7)}$ = \verb|0101| & $\mathbf{S(B_8)}$ = \verb|0000|.
-	\end{tabular}
-	\end{center}
+\begin{center}
+\begin{tabular}{ c c c c }
+	$\mathbf{S(B_1)}$ = \verb|0000| & $\mathbf{S(B_2)}$ = \verb|1100| &  
+	$\mathbf{S(B_3)}$ = \verb|0010| & $\mathbf{S(B_4)}$ = \verb|0001| \\
+	$\mathbf{S(B_5)}$ = \verb|0110| & $\mathbf{S(B_6)}$ = \verb|1101| &
+	$\mathbf{S(B_7)}$ = \verb|0101| & $\mathbf{S(B_8)}$ = \verb|0000|.
+\end{tabular}
+\end{center}
 
 \end{solution}
 
-
-%=== PART F ====
+% ==== PART F ====
 \item[f.] Concatenate the results of (e) to get a 32-bit result, $B$.
 
-%=== SOLUTION ====
+% ==== SOLUTION =====
 \begin{solution}
 
 Using the code below, we get: 
 $\mathbf{B}$ = \verb|0x0c216d50| = \verb|00001100001000010110110101010000|.
 
-% vscode snippet
+% VSCode snippet.
 \lstinputlisting[
-	language = C, style = myCstyle,
-	linerange = {70-74},
-	numbersep = -10pt,     % workaround for removing 
-	xleftmargin = -5pt     % tab from beginning
-	]{hw02/des.c}
+	language = C, style = vsLight,
+	linerange = {68-72},
+	firstnumber = 68
+	]{des.c}
 
 \end{solution}
 
-
-%=== PART G ====
+% ==== PART G ====
 \item[g.] Apply the permutation to get $P(B)$.
 
-%=== SOLUTION ====
+% ==== SOLUTION =====
 \begin{solution}
 The result of \verb|applyTransform("permutation", B, 32)| is
 \begin{center}
@@ -355,11 +365,10 @@ The result of \verb|applyTransform("permutation", B, 32)| is
 \end{center}
 \end{solution}
 
-
 %=== PART H ====
 \item[h.] Calculate $R1 = P(B) \oplus L_0$.
 
-%=== SOLUTION ====
+% ==== SOLUTION =====
 \begin{solution}
 $\mathbf{R_1} 
 = \mathbf{P(B)} \oplus \mathbf{L_0}$
@@ -367,31 +376,32 @@ $\mathbf{R_1}
 = \verb|01011110000111001110110001100011|.
 \end{solution}
 
-
 \newpage
 
-
-%=== PART I ====
+% ==== PART I ====
 \item[i.] Write down the ciphertext.
 
-%=== SOLUTION ====
+% ==== SOLUTION =====
 \begin{solution}
 
 Perform a 32-bit swap on $\mathbf{L_1 \Vert R_1}$ and apply the inverse 
 permutation as shown below.
 
-% vscode snippet
+% VSCode snippet.
 \lstinputlisting[
-	language = C, style = myCstyle,
-	linerange = {89-91},
-	numbersep = -10pt,     % workaround for removing 
-	xleftmargin = -5pt     % tab from beginning
-	]{hw02/des.c}
+	language = C, style = vsLight,
+	linerange = {87-89},
+	firstnumber = 87
+	]{des.c}
 
 Thus, the ciphertext is
 \begin{center}
-	\verb|0000 0001 0110 0011 0101 0100 0111 0110 1101 1000 1010 1111 1100 1101 1010 1110| \\
-	\verb|0x 0 1 6 3 5 4 7 6 D 8 A F C D A E|
+\begin{tabular}{ *{4}{c} }
+	0000 0001 0110 0011 & 0101 0100 0111 0110 &
+	1101 1000 1010 1111 & 1100 1101 1010 1110 \\
+	0 \quad 1 \quad 6 \quad 3 & 5 \quad 4 \quad 7 \quad 6 &
+	D \quad 8 \quad A \quad F & C \quad D \quad A \quad E
+\end{tabular}
 \end{center}
 
 \end{solution}
@@ -402,93 +412,97 @@ Thus, the ciphertext is
 \vspace{0.5cm}
 
 
-%=== NOTES ===
+% ==== NOTES ====
 \begin{solution}
 Finally, we made use of the three functions defined below.
 
-% vscode snippet
+% VSCode snippet.
 \lstinputlisting[
-	language = C, style = myCstyle,
-	linerange = {100-135}
-	]{hw02/des.c}
+	language = C, style = vsLight,
+	linerange = {98-132},
+	firstnumber = 98
+	]{des.c}
 \end{solution}
 
 
 \newpage
 
 
-%%=============================================================================
-%%============================== PROBLEM 4.14 =================================
-%%=============================================================================
+% =============================================================
+% ======================== PROBLEM 4.14 =======================
+% =============================================================
 
 \subsection*{Problem 4.14}
 
 \begin{description}
 
-%=== PART A ====
+% ==== PART A ====
 \item[a.] Let $X'$ be the bitwise complement of $X$. Prove that if the 
-complement of the plaintext block is taken and the complement of an encryption 
-key is taken, then the result of DES encryption with these values is the 
-complement of the original ciphertext. That is,
+complement of the plaintext block is taken and the complement of an 
+encryption key is taken, then the result of DES encryption with these values 
+is the complement of the original ciphertext. That is,
 \begin{align*}
 	\text{If} \qquad Y \quad &= \quad E(K, X) \\
 	\text{Then} \qquad Y' \quad &= \quad E(K', X')
 \end{align*}
 
-%=== SOLUTION ====
+% ==== SOLUTION =====
 \begin{solution}
 
 To begin, notice that 
-	$$X = L_0 \Vert X_0 \quad \Rightarrow \quad X' = L'_0 \Vert R'_0.$$
+	\[ X = L_0 \Vert X_0 \quad \Rightarrow \quad X' = L'_0 \Vert R'_0 \]
 On the other hand, let $P$ be a bitwise permutation such that $P(b_i) = b_j$ 
-where $b_i, b_j$ are the $i^{\text{th}}$ and $j^{\text{th}}$ bits respectively. 
-It follows that $P(b'_i) = b'_j$. Then
-	$$PC1(K) = C_0 \Vert D_0 \quad 
+where $b_i, b_j$ are the $i^{\text{th}}$ and $j^{\text{th}}$ bits 
+respectively. It follows that $P(b'_i) = b'_j$. Then
+	\[ PC1(K) = C_0 \Vert D_0 \quad 
 	\Rightarrow 
-	\quad PC1(K') = C'_0 \Vert D'_0.$$
-Likewise, applying a left circular shift and $PC2$ yield the expected results. 
-See diagram below for reference.
+	\quad PC1(K') = C'_0 \Vert D'_0 \]
+Likewise, applying a left circular shift and $PC2$ yield the expected 
+results. See diagram below for reference.
 \begin{center}
-	\includestandalone[scale=0.75]{figures/full_des}
+	\includestandalone[mode=buildmissing, scale=0.75]
+		{figures/full_des}
 \end{center}
 
 Now we address the more involved portion. At the first XOR, we have 
 $E(R'_0) \oplus K'_1$. Below [left], we show that 
 $A = E(R) \oplus K = E(R') \oplus K'$.
-	\begin{center}
-	\begin{tabular}{ *{6}{ c } }
-		$E$ & $K$ & $E \oplus K$ & $E'$ & $K'$ & $E' \oplus K'$ \\
-		\hline
-		0 & 0 & \cellcolor{yellow!75} 0 & 1 & 1 & \cellcolor{yellow!75} 0 \\
-		0 & 1 & \cellcolor{yellow!75} 1 & 1 & 0 & \cellcolor{yellow!75} 1 \\
-		1 & 0 & \cellcolor{yellow!75} 1 & 0 & 1 & \cellcolor{yellow!75} 1 \\
-		1 & 1 & \cellcolor{yellow!75} 0 & 0 & 0 & \cellcolor{yellow!75} 0 
-	\end{tabular}
-	\hspace{1cm}
-	\begin{tabular}{ *{6}{ c } }
-		$L$ & $P$ & $L \oplus P$ & $(L \oplus P)'$ & $L'$ & $L' \oplus P$ \\
-		\hline
-		0 & 0 & 0 & \cellcolor{yellow!75} 1 & 1 & \cellcolor{yellow!75} 1 \\
-		0 & 1 & 1 & \cellcolor{yellow!75} 0 & 1 & \cellcolor{yellow!75} 0 \\
-		1 & 0 & 1 & \cellcolor{yellow!75} 0 & 0 & \cellcolor{yellow!75} 0 \\
-		1 & 1 & 0 & \cellcolor{yellow!75} 1 & 0 & \cellcolor{yellow!75} 1 
-	\end{tabular}
-	\end{center}
+\begin{center}
+\begin{tabular}{ *{6}{ c } }
+	$E$ & $K$ & $E \oplus K$ & $E'$ & $K'$ & $E' \oplus K'$ \\
+	\hline
+	0 & 0 & \cellcolor{yellow!75} 0 & 1 & 1 & \cellcolor{yellow!75} 0 \\
+	0 & 1 & \cellcolor{yellow!75} 1 & 1 & 0 & \cellcolor{yellow!75} 1 \\
+	1 & 0 & \cellcolor{yellow!75} 1 & 0 & 1 & \cellcolor{yellow!75} 1 \\
+	1 & 1 & \cellcolor{yellow!75} 0 & 0 & 0 & \cellcolor{yellow!75} 0 
+\end{tabular}
+\hspace{1cm}
+\begin{tabular}{ *{6}{ c } }
+	$L$ & $P$ & $L \oplus P$ & $(L \oplus P)'$ & $L'$ & $L' \oplus P$ \\
+	\hline
+	0 & 0 & 0 & \cellcolor{yellow!75} 1 & 1 & \cellcolor{yellow!75} 1 \\
+	0 & 1 & 1 & \cellcolor{yellow!75} 0 & 1 & \cellcolor{yellow!75} 0 \\
+	1 & 0 & 1 & \cellcolor{yellow!75} 0 & 0 & \cellcolor{yellow!75} 0 \\
+	1 & 1 & 0 & \cellcolor{yellow!75} 1 & 0 & \cellcolor{yellow!75} 1 
+\end{tabular}
+\end{center}
 Applying the S-boxes then yields the same result $B$ and for the second XOR, 
 we see above [right] that \newline $L' \oplus P = (L \oplus P)' = R'$.
 
 It follows that Round 16 would yield $L'_{16}$ and $R'_{16}$. Finally, since 
 $IP^{-1}$ is a permutation as well
-	$$IP^{-1}(R'_{16} \Vert L'_{16}) = (IP^{-1}(R_{16} \Vert L_{16}))' = Y'$$
+	\[ IP^{-1}(R'_{16} \Vert L'_{16}) 
+	= (IP^{-1}(R_{16} \Vert L_{16}))' 
+	= Y' \]
 Thus, proving if $Y = E(K,X)$, then $Y' = E(K',X')$.
 
 \end{solution}
 	
-%=== PART B ====
+% ==== PART B ====
 \item[b.] It has been said that a brute-force attack on DES requires searching 
 a key space of $2^{56}$ keys. Does the result of part (a) change that?
 
-%=== SOLUTION ====
+% ==== SOLUTION =====
 \begin{solution}
 In any set of $2^n$ bit keys, half of them are complements of the other half. 
 This makes it computationally inexpensive to find $Y'$ if a brute-force attack 

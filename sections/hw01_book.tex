@@ -1,0 +1,513 @@
+\documentclass[../hw_sols.tex]{subfiles}
+\setlist[description]{style = unboxed, leftmargin = 0.55cm}
+
+\begin{document}
+
+% =============================================================
+% ======================== PROBLEM 3.1 ========================
+% =============================================================
+
+\subsection*{Problem 3.1}
+
+A generalization of the Caesar cipher, known as the affine Caesar cipher, has 
+the following form: For each plaintext letter $p$, substitute the ciphertext 
+letter $C$:
+	\[ C = E([a,b], p) = (ap + b) \tmod{26} \]
+A basic requirement of any encryption algorithm is that it be one-to-one. 
+That is, if $p \neq q$, then $E(k,p) \neq E(k,q)$. Otherwise, decryption is 
+impossible, because more than one plaintext character maps into the same 
+ciphertext character. The affine Caesar cipher is not one-to-one for all 
+values of $a$. For example, for $a = 2$ and $b = 3$, then \newline
+$E([a,b], 0) = E([a,b], 13) = 3$.
+
+\begin{description}
+
+% ==== PART A ====
+\item[a.] Are there any limitations on the value of $b$? Explain why or why 
+not.
+
+% ==== SOLUTION ====
+\begin{solution}
+Addition by $b$ represents a shift substitution. Therefore, impose 
+$b \in \mathbb{Z}_{26}$ so each shift is unique.
+\end{solution}
+
+% ==== PART B ====
+\item[b.] Determine which values of $a$ are not allowed.
+
+% ==== SOLUTION ====
+\begin{solution}
+The decryption algorithm is easy to construct.
+	\[ D([a,b],C) := a^{-1}(C-b) \tmod{26} = p \]
+For $a^{-1} \tmod{26}$ to exists, we require $\gcd(a,26) = 1$. Hence, $a$ 
+cannot be even or 13.
+\end{solution}
+
+\end{description}
+
+
+\newpage
+
+
+% =============================================================
+% ======================== PROBLEM 3.8 ========================
+% =============================================================
+
+\subsection*{Problem 3.8}
+
+A disadvantage of the general monoalphabetic cipher is that both sender and 
+receiver must commit the permuted cipher sequence to memory. A common 
+technnique for avoiding this is to use a keyword from which the cipher 
+sequence can be generated. For example, using the keyword CRYPTO, write out 
+the keyword followed by unused letters in normal order and match this against 
+the plaintext letters:
+\begin{Verbatim}
+plain:  a b c d e f g h i j k l m n o p q r s t u v w x y z
+CIPHER: C R Y P T O A B D E F G H I J K L M N Q S U V W X Z
+\end{Verbatim}
+
+If it is felt that this process does not produce sufficient mixing, write the 
+remaining letters on successive lines and then generate the sequence by 
+reading down the columns:
+\begin{Verbatim}[xleftmargin=3cm]
+C R Y P T O
+A B D E F G
+H I J K L M
+N Q S U V W
+X Z
+\end{Verbatim}
+
+This yields the sequence:
+\begin{Verbatim}
+C A H N X R B I Q Z Y D J S P E K U T F L V O G M W
+\end{Verbatim}
+
+% TODO: Option [page=#] doesn't work.
+Such a system is used in the example in 
+\href{run:../Cryptography and Network Security.pdf}{Section 3.2} (the one 
+that begins "it was disclosed yesterday"). Determine the keyword.
+
+% ==== SOLUTION =====
+\begin{solution}
+
+From the decrypt, we know the correspondence below:
+\begin{Verbatim}
+plain:  a b c d e f g h i j k l m n o p q r s t u v w x y z
+CIPHER: S A H V P B J W U ? ? X T D M Y ? E O Z I F Q ? G ?	
+\end{Verbatim}
+
+The keyword must have a length of 6 so that \verb|A| and \verb|B| 
+line up horizontally.
+
+\begin{minipage}{0.2\linewidth}
+\begin{Verbatim}
+S P U T ? I ?
+A B ? D E F G
+H J ? M O Q ?
+V W X Y Z    
+\end{Verbatim}
+\end{minipage}
+\qquad {\Huge $\Rightarrow$} \qquad
+\begin{minipage}{0.2\linewidth}
+\begin{Verbatim}
+S P U T N I K
+A B C D E F G
+H J L M O Q R
+V W X Y Z
+\end{Verbatim}
+\end{minipage}
+
+With little effort, we see the keyword is \verb|SPUTNIK|.
+
+\end{solution}
+
+
+\newpage
+
+
+% =============================================================
+% ======================== PROBLEM 3.9 ========================
+% =============================================================
+
+\subsection*{Problem 3.9}
+
+When the PT-109 American patrol boat, under the command of Lieutenant John F. 
+Kennedy, was sunk by a Japanese destroyer, a message was received at an 
+Australian wireless station in Playfair code:
+\begin{Verbatim}[xleftmargin=3cm]
+KXJEY UREBE ZWEHE WRYTU HEYFS
+KREHE GOYFI WTTTU OLKSY CAJPO
+BOTEI ZONTX BYBNT GONEY CUZWR
+GDSON SXBOU YWRHE BAAHY USEDQ
+\end{Verbatim}
+
+The key used was \textit{royal new zealand navy}. Decrypt the 
+message. Translate \verb|TT| into tt.
+
+% ==== SOLUTION =====
+\begin{solution}
+
+Begin by creating the $5 \times 5$ Playfair matrix from the known keyword.
+\begin{center}
+\begin{tabular}{ | c | c | c | c | c | }
+	\hline \rowcolor{cyan!20}
+	R & O & Y & A & L \\
+	\hline \rowcolor{cyan!20}
+	N & E & W & Z & D \\
+	\hline
+	\cellcolor{cyan!20} V & B & C & F & G \\
+	\hline
+	H & I/J & K & M & P \\
+	\hline
+	Q &   S & T & U & X \\
+	\hline
+\end{tabular}
+\end{center}
+
+Then, we can break up the ciphertext into digrams and decrypt each 
+by applying the algorithm in reverse.
+% Playfair decrypt.
+\VerbatimInput{verbatim/hw01/3_9_decrypt}
+
+When rearranging the cipher, we can ignore extra x's to get the 
+plaintext:
+\begin{Verbatim}
+pt boat one owe nine lost in action in blackett strait two miles
+sw meresu cove crew of twelve request any information
+\end{Verbatim}
+
+\end{solution}
+
+
+\newpage
+
+
+% =============================================================
+% ======================== PROBLEM 3.11 =======================
+% =============================================================
+
+\subsection*{Problem 3.11}
+
+\begin{description}
+
+% ==== PART A ====
+\item[a.] Using this Playfair matrix:
+\begin{center}
+\begin{tabular}{ | c | c | c | c | c | }
+	\hline
+	M & F & H & I/J & K \\
+	\hline
+	U & N & O &   P & Q \\
+	\hline
+	Z & V & W &   X & Y \\
+	\hline
+	E & L & A &   R & G \\
+	\hline
+	D & S & T &   B & C \\
+	\hline
+\end{tabular}
+\end{center}
+
+Encrypt this message:
+\begin{center}
+	Must see you over Cadogan West. Coming at once.
+\end{center}
+\textit{Note:} This message is from the Sherlock Holmes story, The 
+Adventure of the Bruce-Partingon plans.
+
+% ==== SOLUTION =====
+\begin{solution}
+Split the plaintext into digrams and add pad with an 'x' to encrypt as shown 
+below.
+\begin{Verbatim}
+plain:  mu st se ey ou ov er ca do ga nw es tc om in ga to nc ex
+CIPHER: UZ TB DL GZ PN NW LG TG TU ER VO LD BD UH FP ER HW QS RZ
+\end{Verbatim}
+\end{solution}
+
+% ==== PART B ====
+\item[b.] Repeat part \textbf{a.} using the keyword \textit{largest}.
+
+% ==== SOLUTION ====
+\begin{solution}
+
+Using the keyword \textit{largest}, we construct the Playfair matrix below 
+and encrypt.
+\begin{center}
+\begin{tabular}{ | c | c | c | c | c | }
+	\hline \rowcolor{cyan!20}
+	L & A &   R & G & E \\
+	\hline
+	S \cellcolor{cyan!20} & T \cellcolor{cyan!20} & B & C & D \\
+	\hline
+	F & H & I/J & K & M \\
+	\hline
+	N & O &   P & Q & U \\
+	\hline
+	V & W &   X & Y & Z \\
+	\hline
+\end{tabular}
+\end{center}
+
+\begin{Verbatim}
+CIPHER: UZ TB DL GZ PN NW LG TG TU ER OV DL BD UH PF ER HW QS RZ
+\end{Verbatim}
+
+\end{solution}
+
+% ==== PART C ====
+\item[c.] How do you account for the results of this problem? Can you 
+generalize your conclusion?
+
+% ==== SOLUTION ====
+\begin{solution}
+\newline  % Avoids inline error.
+\begin{minipage}{0.55\linewidth}
+The Playfair matrix can be thought of as a torus $\mathcal{T}$ by folding 
+and gluing the vertical edges to each other and the same with the horizontal 
+edges. The figure to the right shows the two Playfair matrices from parts 
+\textbf{a} and \textbf{b}, outlined in red and blue. Notice that they both 
+generate $\mathcal{T}$. It makes sense that our ciphertexts for parts 
+\textbf{a} and \textbf{b} were the same. If we wanted different ciphertexts, 
+we'd need to swap rows or columns of the Playfair matrix. This wouldn't be 
+equivalent to any shift and thus providing a new ciphertext.
+\end{minipage}
+\quad
+\begin{minipage}{0.4\linewidth}
+\begin{tikzpicture}
+	\matrix [matrix of math nodes] (m) {
+		Y & Z & V & W &   X & Y & Z & V & W \\
+		G & E & L & A &   R & G & E & L & A \\
+		C & D & S & T &   B & C & D & S & T \\
+		K & M & F & H & I/J & K & M & F & H \\
+		Q & U & N & O &   P & Q & U & N & O \\
+		Y & Z & V & W &   X & Y & Z & V & W \\
+		G & E & L & A &   R & G & E & L & A \\
+		C & D & S & T &   B & C & D & S & T \\
+		K & M & F & H & I/J & K & M & F & H \\
+	};
+
+	% Draw outlines.
+	\node[draw=red, thick, fit=(m-2-3)(m-6-7), inner sep=0pt] {};
+	\node[draw=cyan, thick, fit=(m-4-2)(m-8-6), inner sep=0pt] {};
+\end{tikzpicture}
+\end{minipage}
+
+\end{solution}
+
+\end{description}
+
+
+\newpage
+
+
+% =============================================================
+% ======================== PROBLEM 3.14 =======================
+% =============================================================
+
+\subsection*{Problem 3.14}
+
+\begin{description}
+
+% ==== PART A ====
+\item[a.] Encrypt the message "meet me at the usual place at ten rather than 
+eight o clock" using the Hill cipher with the key 
+$\begin{bmatrix} 7 & 3 \\ 2 & 5 \end{bmatrix}$. 
+Show your calculations and the result.
+
+% ==== SOLUTION ====
+\begin{solution}
+
+Since the Hill cipher matrix $K \in \mathbb{Z}^{2 \times 2}$, we'll rewrite the 
+plaintext into digrams and convert to numeric. \newline
+We'll also pad the string with 'x' at the end to achieve an even length.
+\begin{Verbatim}
+plain: me et me at th eu su al pl ac ea tt en ra th er th an ei gh to cl oc kx
+\end{Verbatim}
+
+This gives us the following list of vectors $p_i$ for $1 \leq i \leq 24$:
+\begin{center}
+\begin{tabular}{ *{8}{ r } }
+	(12,4) & (4,19) & (12,4) & (0,19) & (19,7) & (4,20) & (18,20) & (0,11) \\
+	(15,11) & (0,2) & (4,0) & (19,19) & (4,13) & (17,0) & (19,7) & (4,17) \\
+	(19,7) & (0,13) & (4,8) & (6,7) & (19,14) & (2,11) & (14,2) & (10,23)
+\end{tabular}
+\end{center}
+
+To encrypt, let $p_i$ be the $i^{\text{th}}$ row of matrix $P$ so that
+\begin{align*}
+	PK =& 
+	\begin{bmatrix}
+		12 & 4 & 12 &  0 & 19 & \dots & 14 & 10 \\
+		 4 & 19 & 4 & 19 &  7 & \dots &  2 & 23
+	\end{bmatrix}^T
+	\begin{bmatrix} 7 & 3 \\ 2 & 5 \end{bmatrix} \tmod{26} \\
+	\equiv& 
+	\begin{bmatrix}
+		14 & 14 & 14 & 12 & 17 & \dots & 24 & 12 \\
+		 4 &  3 &  4 & 17 & 14 & \dots &  0 & 15
+	\end{bmatrix}^T 
+	= \; C.
+\end{align*}
+
+We now convert each row $c_i$ of $C$ to alphabet characters to get the 
+ciphertext below.
+\begin{Verbatim}
+CIPHER: OE OD OE MR QI KY WD XW EK CM PW CZ PZ RO AN SA EB FX KJ YA MP
+\end{Verbatim}
+
+\end{solution}
+
+% ==== PART B ====
+\item[b.] Show the calculations for the corresponding decryption of the 
+ciphertext to recover the original plaintext.
+
+% ==== SOLUTION ====
+\begin{solution}
+
+For decryption, compute $\det(K) = 29 \equiv 3 \tmod{26}$. Since 
+$9 \equiv 3^{-1} \tmod{26}$, we have
+	\[ K^{-1} 
+	= 9 \begin{bmatrix} 5 & -3 \\ -2 & 7 \end{bmatrix} 
+	\equiv \begin{bmatrix} 19 & 25 \\ 8 & 11 \end{bmatrix} \tmod{26} \]
+
+To obtain the plaintext, we simply take the product	
+\begin{align*}
+	CK^{-1} =& 
+	\begin{bmatrix}
+		14 & 14 & 14 & 12 & 17 & \dots & 24 & 12 \\
+		4 & 3 & 4 & 17 & 14 & \dots & 0 & 15
+	\end{bmatrix}^T
+	\begin{bmatrix} 19 & 25 \\ 8 & 11 \end{bmatrix} \tmod{26} \\
+	\equiv& 
+	\begin{bmatrix}
+		12 & 4 & 12 & 0 & 19 & \dots & 14 & 10 \\
+		4 & 19 & 4 & 19 & 7 & \dots & 2 & 23
+	\end{bmatrix}
+	= P
+\end{align*}
+
+This recovers plaintext matrix $P$ from part \textbf{a}.
+
+\end{solution}
+
+\end{description}
+
+
+\newpage
+
+
+% =============================================================
+% ======================== PROBLEM 3.18 =======================
+% =============================================================
+
+\subsection*{Problem 3.18}
+
+\begin{description}
+
+% ==== PART B ====
+\item[b.] Determine the inverse mod 26 of
+	\[ \begin{bmatrix}
+		6  & 24 &  1 \\ 
+		13 & 16 & 10 \\ 
+		20 & 17 & 15
+	\end{bmatrix} \]
+
+% ==== SOLUTION ====
+\begin{solution}
+
+Denote matrix $A$. To compute $A^{-1} \tmod{26}$, we first need the 
+determinant.
+	\[ \det(A) = 441 \equiv 25 \tmod{26} \]
+
+We can then find the cofactors of 
+$A^T = 
+\begin{bmatrix}
+	 6 & 13 & 20 \\ 
+	24 & 16 & 17 \\ 
+	 1 & 10 & 15
+\end{bmatrix}$
+as shown below.
+
+\begin{multicols}{3}
+	$C_{1,1} = (-1)^2(16 \cdot 15 - 10 \cdot 17) \\
+	 C_{2,1} = (-1)^3(13 \cdot 15 - 10 \cdot 20)  \\
+	 C_{3,1} = (-1)^4(13 \cdot 17 - \cdot 16 \cdot 20)$
+	
+	$C_{1,2} = (-1)^3(24 \cdot 15 - 1 \cdot 17) \\
+	 C_{2,2} = (-1)^4(6 \cdot 15 - 1 \cdot 20)   \\
+	 C_{3,2} = (-1)^5(6 \cdot 17 - 24 \cdot 20)$
+	
+	$C_{1,3} = (-1)^4(24 \cdot 10 - 1 \cdot 16) \\
+	 C_{2,3} = (-1)^5(6 \cdot 10 - 1 \cdot 13)   \\
+	 C_{3,3} = (-1)^6(6 \cdot 16 - 24 \cdot 13)$
+\end{multicols}
+
+This allows us to create the adjoint matrix
+	\[ \text{adj}(A) =
+	\begin{bmatrix}
+		 70 & -343 &  224 \\ 
+		  5 &   70 &  -47 \\ 
+		-99 &  378 & -216
+	\end{bmatrix} \]
+
+Lastly, notice that $25 \cdot 25 \equiv 1 \tmod{26}$ so we take the product
+	\[ (\det(A))^{-1} \cdot \text{adj}(A) 
+	= 25 \cdot \text{adj}(A) 
+	\equiv 
+	\begin{bmatrix}
+		 8 &  5 & 10 \\ 
+		21 &  8 & 21 \\ 
+		21 & 12 & 8
+	\end{bmatrix} \tmod{26} 
+	= A^{-1} \]
+
+\end{solution}
+
+\end{description}
+
+
+\newpage
+
+
+% =============================================================
+% ======================== PROBLEM 3.19 =======================
+% =============================================================
+
+\subsection*{Problem 3.19}
+
+Using the Vigenère cipher, encrypt the word "explanation" using the word 
+"leg".
+
+% ==== SOLUTION ====
+\begin{solution}
+
+Begin by repeating the keyword over the plaintext as shown below.
+\begin{Verbatim}
+key:    legleglegle
+plain:  explanation
+\end{Verbatim}
+
+We can then perform the required shifts by taking the sum mod 26.
+\begin{center}
+\begin{tabular}{ *{12}{| c } | }
+	\hline
+		key & 11 &  4 &  6 & 11 & 4 &  6 & 11 &  4 &  6 & 11 &  4 \\
+	\hline
+		plain &  4 & 23 & 15 & 11 & 0 & 13 &  0 & 19 &  8 & 14 & 13 \\
+	\hline
+	CIPHER & 15 &  1 & 21 & 22 & 4 & 19 & 11 & 23 & 14 & 25 & 17 \\
+	\hline
+\end{tabular}
+\end{center}
+
+Encryption is completed by writing the numerical values into an alphabetic 
+ciphertext.
+\begin{Verbatim}
+CIPHER: PBVWETLXOZR
+\end{Verbatim}
+
+\end{solution}
+
+
+\end{document}

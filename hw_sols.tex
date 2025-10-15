@@ -1,161 +1,122 @@
-%%#####################################################%%
-%% Author: David Guerra                                %%
-%% Date: Winter 2018                                   %%
-%% Purpose: All homework solutions for EECS 475        %%
-%%                                                     %%
-%% Revisions written on May 2023                       %%
-%%#####################################################%%
+%%##############################################%%
+%% Author: David Guerra                         %%
+%% Date: Winter 2018                            %%
+%% Purpose: All homework solutions for EECS 475 %%
+%%                                              %%
+%% Revisions written on Oct 2025                %%
+%%##############################################%%
 
 
-\documentclass[answers]{exam}  % solution boxes
+\documentclass[answers]{exam}  % Exam document with answers.
 
-\usepackage[top=20mm, left=15mm, right=15mm]{geometry}
+% Preamble for EECS documents.
+\input{preamble/eecs}
+\input{preamble/lst_style_c}
+
 
 \usepackage{standalone}   % outside files
 
-\usepackage{multicol}
-\usepackage{enumitem}
-\usepackage{wrapfig}     % minipage
+% \usepackage{wrapfig}     % minipage
 
-\usepackage{amsmath}     % align
-\usepackage{amssymb}     % integers Z, etc
 %\usepackage{amsfonts}
 %\usepackage{amsthm}
 
-\usepackage{tikz}
-\usetikzlibrary{arrows}
-\usetikzlibrary{matrix}
-\usetikzlibrary{positioning}
-
 \usepackage{graphicx}
-\usepackage{pgfplots}
-\pgfplotsset{compat=newest}
-\pgfplotsset{table/search path=scripts}
 
-\usepackage{colortbl}
-\usepackage{verbatim}
-\usepackage{fancyvrb}    % color and input for verbatim
+% \usepackage{verbatim}
 %\usepackage{fvextra}
-\usepackage{hyperref}    % links within pdf (ToC)
-\usepackage{listings}    % programming scripts
-\lstset{inputpath=scripts}
-\usepackage{subfiles}    % section links
 
-\usepackage{parskip}     % avoid improper use of \
 
-% the following are for VSCODE
-\definecolor{vsGreen}{cmyk}{0.7,0,0.9,0.3}    % comments
-\definecolor{vsBlue}{cmyk}{1,0.5,0,0}         % keywords
-\definecolor{vsRose}{cmyk}{0.1,1,0,0}         % strings
-\definecolor{vsPurple}{cmyk}{0.6,1,0,0}       % if, else, etc
-\definecolor{vsNeon}{cmyk}{0.7,0,0.4,0}       % special types
-\definecolor{vsYellow}{cmyk}{0.2,0.3,1,0}     % functions
+\usepackage{parskip}     % avoid improper use of 
 
-% customized style for importing scripts in C
-\lstdefinestyle{myCstyle}{
-	aboveskip = 5pt,
-	belowskip = 1pt,
-	basicstyle = \ttfamily\footnotesize\color{black},
-	breaklines = true,
-	commentstyle = \color{vsGreen},
-	firstnumber = 1,
-	numbers = left,
-	numbersep = 10pt,
-	numberstyle = \tiny\color{black},
-	showstringspaces = false,
-	stringstyle = \color{vsRose},
-	xleftmargin = 16pt,
-	keywordstyle = [1]\color{vsBlue},
-	morekeywords = [1]{snprintf},
-	keywordstyle = [2]\color{vsYellow},
-	morekeywords = [2]{fread, fopen, fclose, fscanf,
-		isalpha, printf, memset, malloc, pow},
-	keywordstyle = [3]\color{vsNeon},
-	morekeywords = [3]{uint8_t, uint32_t, uint64_t, FILE},
-	emphstyle = [1]\color{vsPurple},
-	emph      = [1]{if, else, then, for, while, continue}
-}
-
-\lstdefinestyle{cipher}{
-	frame = none,
-	backgroundcolor = \color{white},
-	basicstyle = \ttfamily,
-	breaklines = true,
-	columns = flexible,
-}
-
-\renewcommand{\solutiontitle}{\noindent\textbf{\color{red}{Solution:}}\enspace}
-\newcommand{\tmod}[1]{\mkern+4mu\mathrm{mod}\ #1}  % tight mod
+% \lstdefinestyle{cipher}{
+% 	frame = none,
+% 	backgroundcolor = \color{white},
+% 	basicstyle = \ttfamily,
+% 	breaklines = true,
+% 	columns = flexible,
+% }
 
 %==============================================================================
-%==============================================================================
-
 
 \begin{document}
 
-	\begin{titlepage}
-		\begin{center}
-			\vspace*{4cm}
+\begin{titlepage}
+	\begin{center}
+		\vspace*{4cm}
 
-			\hrule
-			\vspace{0.5cm}
-			{ 
-				\LARGE 
-				\textbf{EECS 475, Winter 2018}\\
-				\textbf{Introduction to Cryptography}
-			}
-			\vspace{0.5cm}
-			\hrule
+		\hrule
+		\vspace{0.5cm}
+		{ 
+			\LARGE 
+			\textbf{EECS 475 - Winter 2018}\\
+			\textbf{Introduction to Cryptography}
+		}
+		\vspace{0.5cm}
+		\hrule
 
-			\vspace{2cm}
+		\vspace{2cm}
 
-			\textit{Solutions written by}:\\
-			{\large David Guerra}
+		\textit{Solutions written by}:\\
+		{\large David Guerra}
 
-			\vfill
+		\vfill
 
-			{ \Large \textit{Cryptography and Network Security}\\ }
-			{ \Large \textit{Principles and Practice (Seventh Edition)}\\ }
-			{ \Large \textit{Author - William Stallings} }
+		{ \Large \textit{Cryptography and Network Security}\\ }
+		{ \Large \textit{Principles and Practice (Seventh Edition)}\\ }
+		{ \Large \textit{Author - William Stallings} }
 
-			\vspace{2cm}
+		\vspace{2cm}
 
-			\Large
-			Electrical Engineering and Computer Science Department\\
-			University of Michigan
+		\Large
+		Electrical Engineering and Computer Science Department\\
+		University of Michigan
 
-		\end{center}
-	\end{titlepage}
-	\newpage
+	\end{center}
+\end{titlepage}
+\newpage
 
-	\tableofcontents
-	\newpage
+\tableofcontents
+\newpage
 
-	\section{Homework 01}
-	\subfile{sections/hw01}
-	\newpage
+\section{Homework 01 (Textbook)}
+\subfile{sections/hw01_book}
+\newpage
 
-	\section{Homework 02}
-	\subfile{sections/hw02}
-	\newpage
+\section{Homework 01 (Custom)}
+\subfile{sections/hw01_custom}
+\newpage
 
-	\section{Homework 03}
-	\subfile{sections/hw03}
-	\newpage
+% \section{Homework 02}
+% \subfile{sections/hw02}
+% \newpage
 
-	\section{Homework 04}
-	\subfile{sections/hw04}
-	\newpage
+% \section{Homework 03}
+% \subfile{sections/hw03}
+% \newpage
 
-	\section{Homework 05}
-	\subfile{sections/hw05}
-	\newpage
+% \section{Homework 04}
+% \subfile{sections/hw04}
+% \newpage
 
-	% \section{Homework 07}
-	% \subfile{sections/hw07}
-	% \newpage
+% \section{Homework 05}
+% \subfile{sections/hw05}
+% \newpage
 
-	% \section{Homework 09}
-	% \subfile{sections/hw09}
+% \section{Homework 06}
+% \subfile{sections/hw06}
+% \newpage
+
+% \section{Homework 07}
+% \subfile{sections/hw07}
+% \newpage
+
+% \section{Homework 08}
+% \subfile{sections/hw08}
+% \newpage
+
+% \section{Homework 09}
+% \subfile{sections/hw09}
+% \newpage
 
 \end{document}

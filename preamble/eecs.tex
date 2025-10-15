@@ -1,0 +1,57 @@
+% ===========================================
+% ============ EECS 475 PREAMBLE ============
+% ===========================================
+
+\usepackage[top=20mm, left=15mm, right=15mm]{geometry}
+
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{amsmath}           % For align.
+\usepackage{amssymb}           % For \mathbb.
+
+% \usepackage{caption}         % For \caption*.
+\usepackage{hyperref}          % For links within pdf (ToC).
+\usepackage{subfiles}          % For handling separate files.
+
+\usepackage{colortbl}         % For table coloring.
+
+\usepackage{fancyvrb}          % For verbatim input and color.
+\fvset{xleftmargin=15pt}       % Global verbatim margins.
+\usepackage{listings}          % For scripts.
+\lstset{inputpath=scripts}
+
+\usepackage{tikz}              % For drawing graphs.
+\usetikzlibrary{arrows}
+\usetikzlibrary{matrix}        % For matrix of nodes.
+\usetikzlibrary{fit}           % For fit node.
+\usetikzlibrary{positioning}
+
+\usepackage{pgfplots}          % For import data.
+\pgfplotsset{compat=newest}
+\pgfplotsset{table/search path=verbatim}
+
+\makeatletter
+\@ifclassloaded{exam} {
+% Redefine the solution title to appear in bold red.
+\renewcommand{\solutiontitle}{%
+    \noindent\textbf{\color{red}{Solution:}}\enspace}
+}{}
+\makeatother
+
+% Tight mod.
+\newcommand{\tmod}[1]{\mkern+4mu\mathrm{mod}\ #1}
+
+% Custom style for bar graphs.
+\pgfplotsset{
+    bargraph/.style={
+        xtick = data, 
+        tickwidth = 0pt, 
+        xticklabel style = {text height = 1.5ex}, 
+        ymajorgrids = true, 
+        grid style = dashed, 
+        ybar, 
+        bar width = 0.5cm, 
+        width = \textwidth, 
+        height = 0.3\textwidth
+    }
+}

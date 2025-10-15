@@ -6,7 +6,7 @@
 
 \usepackage{multicol}
 \usepackage{enumitem}
-\usepackage{amsmath}           % For align.
+\usepackage{amsmath}           % For align, Z, Q, etc.
 \usepackage{amssymb}           % For \mathbb.
 
 % \usepackage{caption}         % For \caption*.
@@ -17,8 +17,9 @@
 
 \usepackage{fancyvrb}          % For verbatim input and color.
 \fvset{xleftmargin=15pt}       % Global verbatim margins.
-\usepackage{listings}          % For scripts.
-\lstset{inputpath=scripts}
+\usepackage{listings}          % For importing scripts.
+\lstset{inputpath=scripts}     % Global path to \lstinputlisting.
+\usepackage{standalone}        % For including standalone files.
 
 \usepackage{tikz}              % For drawing graphs.
 \usetikzlibrary{arrows}

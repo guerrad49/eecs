@@ -3,15 +3,14 @@
 #include <ctype.h>
 #include <string.h>
 
-#define ALPHABET 26
+#define ALPHA_SIZE 26
 
 void printFrequency(FILE *in);
 void printDecrypt(FILE *in);
 
 //===============================================================
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     FILE *handle  = fopen(argv[1], "r");
 
     if (strcmp(argv[2],"-f") == 0) { printFrequency(handle); }
@@ -23,31 +22,27 @@ int main(int argc, char **argv)
 //===============================================================
 
 // Use for Problem B
-void printFrequency(FILE *in)
-{
-    int freq[ALPHABET] = {0};
+void printFrequency(FILE *in) {
+    int freq[ALPHA_SIZE] = {0};
     char buffer = 0;
 
-    while (fread(&buffer, sizeof(char), 1, in) == 1)
-    {
+    while (fread(&buffer, sizeof(char), 1, in) == 1) {
         if (isalpha(buffer) == 0) { continue; }
         freq[buffer-97]++;
     }
 
-    for (int i = 0; i < ALPHABET; i++)
-        { printf("%c %d\n", i+97, freq[i]); }
+    for (int i = 0; i < ALPHA_SIZE; i++)
+        printf("%c %d\n", i+97, freq[i]);
 
     fclose(in);
 }
 
 // Use for Problem D
-void printDecrypt(FILE *in)
-{
+void printDecrypt(FILE *in) {
     char buffer = 0;
     char dummy = 0;
 
-    while (fread(&buffer, sizeof(char), 1, in) == 1)
-    {
+    while (fread(&buffer, sizeof(char), 1, in) == 1) {
         if (isalpha(buffer) == 0) { continue; }
         
         dummy = (buffer - 97) - 4;

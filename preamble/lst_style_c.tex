@@ -9,7 +9,6 @@
 \definecolor{vsComment}{HTML}{008000}
 \definecolor{vsControl}{HTML}{AF00DB}    % if, else, etc.
 \definecolor{vsFunction}{HTML}{A57D02}
-\definecolor{vscNumber}{HTML}{098658}
 
 % Define style for C language.
 \lstdefinestyle{vsLight}{
@@ -36,23 +35,11 @@
         main, malloc, memset, free, printf, 
         readCipher, getAverageIOCs, setFrequency, getIOC, 
         getBestKeySize, setEngFrequency, setCaesarShift, 
-        getChiSq, getChiMin, getDecrypt
+        getChiSq, getChiMin, getDecrypt, 
+        applyTransform, leftShift, applySBox
         },
     emphstyle = [3]\color{vsType},
-    emph      = [3]{FILE, uint8_t, uint32_t, uint64_t},
-    literate = *%
-        {0}{{{\color{vscNumber}0}}}{1}%
-        {1}{{{\color{vscNumber}1}}}{1}%
-        {2}{{{\color{vscNumber}2}}}{1}%
-        {3}{{{\color{vscNumber}3}}}{1}%
-        {4}{{{\color{vscNumber}4}}}{1}%
-        {5}{{{\color{vscNumber}5}}}{1}%
-        {6}{{{\color{vscNumber}6}}}{1}%
-        {7}{{{\color{vscNumber}7}}}{1}%
-        {8}{{{\color{vscNumber}8}}}{1}%
-        {9}{{{\color{vscNumber}9}}}{1}%
-        % {0x}{{{\color{vscNumber}0x}}}{2}%
-        % {0X}{{{\color{vscNumber}0X}}}{2}%
+    emph      = [3]{FILE, uint8_t, uint32_t, uint64_t}
 }
 
 

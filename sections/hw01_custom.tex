@@ -120,7 +120,7 @@ Decrypt the following permutation substitution cipher.
 %=== SOLUTION ===
 \begin{solution}
 
-The file \verb|scripts/show_outputs.c| is used to generate the frequency 
+The file \purpText{scripts/show\_outputs.c} is used to generate the frequency 
 distribution.
 
 % VSCode snippet.
@@ -192,7 +192,7 @@ method.
 \begin{solution}
 
 Test keyword periods and analyze their corresponding Index of Coincidences 
-using functions from \verb|scripts/ioc.c|.
+using functions from \purpText{scripts/ioc.c}.
 
 % VSCode snippet.
 \lstinputlisting[
@@ -239,9 +239,9 @@ it's clear from the results below that 20 is also a possible period.
 
 Choose a period of 10 and try the 26 monoalphabetic ciphers to every 10th 
 letter of the ciphertext to obtain the Chi-Square statistics. This is done 
-using \verb|scripts/ioc.c| (relevant parts shown below). Note that the most
-current frequency distribution according to Peter Norvig in 2012 
-(\url{http://norvig.com/mayzner.html}) is denoted \verb|edist|.
+using \purpText{scripts/ioc.c} (relevant parts shown below). Note that in 
+this document we use english frequency distribution from \cite{norvig} which 
+can be seen in line 153 below as the argument \verb|edist|.
 
 % VSCode snippet.
 \lstinputlisting[
@@ -294,7 +294,7 @@ Chi-Square analysis yields the keyword \verb|FLUXIONATE|.
 	firstnumber = 179
 	]{ioc.c}
 
-Decrypt using \verb|scripts/ioc.c| shown above and reformat to attain the 
+Decrypt using \purpText{scripts/ioc.c} shown above and reformat to attain the 
 legible plaintext below.
 % Plain from file.
 \VerbatimInput{verbatim/hw01/c_plain}
@@ -348,7 +348,7 @@ below.
 
 Attempt decrypting by implementing 
 	\[ D([19,4],C) := 11(C-4) \equiv p \tmod{26} \]
-as shown below from \verb|scripts/show_outputs.c|.
+as shown below from \purpText{scripts/show\_outputs.c}.
 
 % VSCode snippet.
 \lstinputlisting[

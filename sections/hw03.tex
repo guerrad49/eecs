@@ -1,63 +1,69 @@
 \documentclass[../hw_sols.tex]{subfiles}
 \setlist[description]{style = unboxed, leftmargin = 0.55cm}
 
-
 \begin{document}
 
-%%=============================================================================
-%%=============================== PROBLEM 1 ===================================
-%%=============================================================================
+% =============================================================
+% ========================= PROBLEM 1 =========================
+% =============================================================
 
 \subsection*{Problem 1}
+\label{prob1}
 
 Let $G$ be a group with group operation $\circ$, and $H \subseteq G$. Recall 
 that
-	$$aH = \{a \circ h: h \in H\}$$
-is a \textit{left coset} of $H$. Take any two elements $a, b \in G$. Show that 
-if $aH \cup bH \neq \emptyset$, then $aH = bH$.
+	\[ aH = \{a \circ h: h \in H\} \]
+is a \textit{left coset} of $H$. Take any two elements $a, b \in G$. Show 
+that if $aH \cap bH \neq \emptyset$, then $aH = bH$.
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
-Assume that $aH \cap bH \neq \emptyset$. Take $h_i,h_j \in H$ such that 
-$a \circ h_i = b \circ h_j$. Then 
-$a \circ h_i \circ h_i^{-1} = b \circ h_j \circ h_i^{-1}$ since $h_i^{-1}$ 
-exists in $H$ and clearly $a = b \circ \left( h_j \circ h_i^{-1} \right)$ by 
-associativity of a group. Moreover, for any $h \in H$, we have 
-$a \circ h = b \circ \left( h_j \circ h_i^{-1} \right) \circ h$. This means 
-that $a \circ h \in bH$ which implies that $aH \subseteq bH$. By the same 
-token, we can show that $b = a \circ \left( h_i \circ h_j^{-1} \right)$ so 
-that for any $h \in H$, have 
-$b \circ h = a \circ \left( h_i \circ h_j^{-1} \right) \circ h$. Hence 
-$b \circ h \in aH$ which implies that $bH \subseteq aH$. Thus $aH = bH$.
+
+Assume that $aH \cap bH \neq \emptyset$. Then there exists some 
+$h_i,h_j \in H$ such that $a \circ h_i = b \circ h_j$. Then
+\begin{align*}
+	a \circ h_i \circ h_i^{-1} \; =& \; b \circ h_j \circ h_i^{-1} \\
+	a \; =& \; b \circ \left( h_j \circ h_i^{-1} \right) \\
+	a \circ h \; =& \; b \circ h_j \circ h_i^{-1} \circ h \\
+	a \circ h \; =& \; b \circ h_k
+\end{align*}
+
+via group laws. This means that $a \circ h \in bH$ which implies that 
+$aH \subseteq bH$. In the same manner, we can show that $b \circ h \in aH$ 
+which implies that $bH \subseteq aH$. Thus $aH = bH$.
+
 \end{solution}
 
 
 \newpage
 
 
-%%=============================================================================
-%%=============================== PROBLEM 2 ===================================
-%%=============================================================================
+% =============================================================
+% ========================= PROBLEM 2 =========================
+% =============================================================
 
 \subsection*{Problem 2}
 
 \begin{description}
 
-%=== PART A ====
-\item[a.] Compute $\phi(1525)$ using the formula to be given in class. (Recall 
-that $\phi(n) = |Z^*_n|$ is Euler's totient function.)
+% ==== PART A ====
+\item[a.] Compute $\phi(1525)$. (Recall that $\phi(n) = |Z^*_n|$ is Euler's 
+totient function.)
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
-We first factor $1525 = 5^2 \cdot 61$. Then 
-	$$\phi(1525) = 1525(1 - 1/5)(1 - 1/61) = 1200.$$
+Know that 
+	\[ \phi(n) = n \prod_{p | n} \left( 1 - \frac{1}{p} \right) \]
+We factor $1525 = 5^2 \cdot 61$. Then 
+	\[ \phi(1525) 
+	= 1525 \left( 1 - \frac{1}{5} \right) \left( 1 - \frac{1}{61} \right) 
+	= 1200 \]
 \end{solution}
 
-
-%=== PART B ====
+% ==== PART B ====
 \item[b.] Use the Extended Euclidean Algorithm to compute $27^{-1} \tmod{41}$.
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 
 To solve the congruence $27x \equiv 1 \tmod{41}$, start by performing a 
@@ -71,11 +77,12 @@ succession of Euclidan divisions.
 Then we can substitute the successive remainders until we have expressed the 
 two original numbers as a linear combination.
 \begin{align*}
-	1 \; =& \; 14 \; - \; 13 \\
-	=& (41 - 27) \; - \; (27 - 14) \\
+	1 \; 
+	=& \; 14 \; - \; 13 \\
+	=& \; (41 - 27) \; - \; (27 - 14) \\
 	=& \; 41 \; - \; 2 \cdot 27 \; + \; 14 \\
 	=& \; 41 \; - \; 2 \cdot 27 \; + \; (41 - 27) \\
-	=& \; 2 \cdot 41 \; {\color{red}-} \; {\color{red}3} \cdot 27
+	=& \; 2 \cdot 41 \; {\color{red} - \; 3} \cdot 27
 \end{align*}
 
 Thus $x = -3 \equiv 38 \tmod{41}$ is the multiplicative inverse of 27 in 
@@ -89,22 +96,22 @@ $\mathbb{Z}_{41}$.
 \newpage
 
 
-%%=============================================================================
-%%=============================== PROBLEM 3 ===================================
-%%=============================================================================
+% =============================================================
+% ========================= PROBLEM 3 =========================
+% =============================================================
 
 \subsection*{Problem 3}
 
 \begin{description}
 
-%=== PART A ====
+% ==== PART A ====
 \item[a.] Recall that an isomorphism from group $G$ to group $H$ is a 
 one-to-one, onto function $f : G \to H$ such that 
 $f(a \circ b) = f(a) \circ f(b)$ for all $a, b \in G$. We say that two groups 
-are isomorphic if there is an isomorphism between them. Show that if $G$ is of 
-order 4 and has an element of order 4, it is isomorphic to $\mathbb{Z}_4$.
+are isomorphic if there is an isomorphism between them. Show that if $G$ is 
+of order 4 and has an element of order 4, it is isomorphic to $\mathbb{Z}_4$.
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 
 We wish to find a mapping $f: G \to H$ such that 
@@ -113,20 +120,22 @@ $g_1^k = g_k$ where we denote $g \circ g = g^2$. Since $G$ is a group, the
 operation table is uniquely determined as shown below on the left.
 
 \begin{multicols}{2}
-	\begin{center}
-	\begin{tabular}{ c | c | c | c | c }
-		$\circ$ & $g_1$ & $g_2$ & $g_3$ & $g_4$ \\
-		\hline
-		  $g_1$ & $g_2$ & $g_3$ & $g_4$ & $g_1$ \\
-		\hline
-		  $g_2$ & $g_3$ & $g_4$ & $g_1$ & $g_2$ \\
-		\hline
-		  $g_3$ & $g_4$ & $g_1$ & $g_2$ & $g_3$ \\
-		\hline
-		  $g_4$ & $g_1$ & $g_2$ & $g_3$ & $g_4$ \\
-	\end{tabular}
-	\end{center}
+% ==== COLUMN 1 ====
+\begin{center}
+\begin{tabular}{ c | c | c | c | c }
+	$\circ$ & $g_1$ & $g_2$ & $g_3$ & $g_4$ \\
+	\hline
+	  $g_1$ & $g_2$ & $g_3$ & $g_4$ & $g_1$ \\
+	\hline
+	  $g_2$ & $g_3$ & $g_4$ & $g_1$ & $g_2$ \\
+	\hline
+	  $g_3$ & $g_4$ & $g_1$ & $g_2$ & $g_3$ \\
+	\hline
+	  $g_4$ & $g_1$ & $g_2$ & $g_3$ & $g_4$
+\end{tabular}
+\end{center}
 
+% ==== COLUMN 2 ====
 \noindent
 \begin{align*}
 	f(g_i \circ g_j) \; 
@@ -142,12 +151,11 @@ done modulo 4. Thus $(G, \circ) \simeq (\mathbb{Z},+)$.
 
 \end{solution}
 
-
-%=== PART B ====
+% ==== PART B ====
 \item[b.] Show that if $G$ is a group of order 4 and has no elements of order 
 4, it is isomorphic to $\mathbb{Z}_2 \times \mathbb{Z}_2$.
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 
 This time we want $(G,\circ) \simeq (\mathbb{Z}_2 \times \mathbb{Z}_2, +)$. 
@@ -162,10 +170,10 @@ $\displaystyle f(g_i) =
 	\left\lfloor \frac{i}{2} \right\rfloor \tmod{2}, \; i \tmod{2} 
 \right)$.
 Thus by explicitly defining $f$ such that
-	$$f(g_4) = (0,0) \; , \; 
+	\[ f(g_4) = (0,0) \; , \; 
 	f(g_1) = (0,1) \; , \; 
 	f(g_2) = (1,0) \; , \; 
-	f(g_3) = (1,1),$$
+	f(g_3) = (1,1) \]
 we have shown that $(G,\circ) \simeq (\mathbb{Z}_2 \times \mathbb{Z}_2, +)$.
 \end{minipage}
 \quad\quad
@@ -173,13 +181,13 @@ we have shown that $(G,\circ) \simeq (\mathbb{Z}_2 \times \mathbb{Z}_2, +)$.
 \begin{tabular}{ c | c | c | c | c }
 	$\circ$ & $g_4$ & $g_1$ & $g_2$ & $g_3$ \\
 	\hline
-	$g_4$ & $g_4$ & $g_1$ & $g_2$ & $g_3$ \\
+	  $g_4$ & $g_4$ & $g_1$ & $g_2$ & $g_3$ \\
 	\hline
-	$g_1$ & $g_1$ & $g_4$ & $g_3$ & $g_2$ \\
+	  $g_1$ & $g_1$ & $g_4$ & $g_3$ & $g_2$ \\
 	\hline
-	$g_2$ & $g_2$ & $g_3$ & $g_4$ & $g_1$ \\
+	  $g_2$ & $g_2$ & $g_3$ & $g_4$ & $g_1$ \\
 	\hline
-	$g_3$ & $g_3$ & $g_2$ & $g_1$ & $g_4$ \\
+	  $g_3$ & $g_3$ & $g_2$ & $g_1$ & $g_4$
 \end{tabular}
 \end{minipage}
 
@@ -191,44 +199,43 @@ we have shown that $(G,\circ) \simeq (\mathbb{Z}_2 \times \mathbb{Z}_2, +)$.
 \newpage
 
 
-%%=============================================================================
-%%=============================== PROBLEM 4 ===================================
-%%=============================================================================
+% =============================================================
+% ========================= PROBLEM 4 =========================
+% =============================================================
 
 \subsection*{Problem 4}
 
 \begin{description}
 
-%=== PART A ====
+% ==== PART A ====
 \item[a.] A subgroup $H$ of group $G$ is normal if $aH = Ha$ for all 
-$a \in G$. Show that $H$ is a normal subgroup of $G$ if and only if every left 
-coset of $H$ is also a right coset of $H$.
+$a \in G$. Show that $H$ is a normal subgroup of $G$ if and only if every 
+left coset of $H$ is also a right coset of $H$.
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
-\begin{itemize}
-	\item $(\Rightarrow)$ Assume $H$ is a normal subgroup of $G$. By 
+\begin{description}
+	\item[$(\Rightarrow)$] Assume $H$ is a normal subgroup of $G$. By 
 	definition, we know that $aH = Ha$ for all $a \in G$. Since every left 
 	coset $aH$ is the right coset $Ha$, we are done.
 
-	\item $(\Leftarrow)$ Assume that every left coset of $H$ is also a right 
+	\item[$(\Leftarrow)$] Assume that every left coset of $H$ is also a right 
 	coset of $H$. Take $a \in G$ so that $aH$ is a left coset of $H$. By 
 	assumption, there exists some $b \in G$ such that $aH = Hb$. Know that 
 	$(H, \circ)$ is a group so it has the identity element, call it 
 	$\textbf{e}$. It's easy to see that $a = a \circ \textbf{e} \in aH$ and 
 	$a = \textbf{e} \circ a \in Ha$. However, $a \in Hb$ since $aH = Hb$. By 
-	the result of \textbf{Problem 1}, this means that $Ha = Hb$. Thus 
+	the result of \nameref{prob1}, this means that $Ha = Hb$. Thus 
 	$aH = Ha$ and we conclude that $H$ is normal subgroup of $G$.
-\end{itemize}
+\end{description}
 \end{solution}
 
-
-%=== PART B ====
+% ==== PART B ====
 \item[b.] The \textit{index} of a subgroup $H$ of $G$ is the number of left 
 cosets of $H$ in $G$. Show that if $H$ is a subgroup of index 2 in $G$, then 
 $H$ is a normal subgroup.
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 Know that $H$ has index 2. This means that $G$ is partitioned by the two 
 cosets of $H$, namely $H$ and $aH$ for some $a \in G$. More precisely, 
@@ -247,9 +254,9 @@ that $H$ is a normal subgroup of $G$.
 \newpage
 
 
-%%=============================================================================
-%%=============================== PROBLEM 5 ===================================
-%%=============================================================================
+% =============================================================
+% ========================= PROBLEM 5 =========================
+% =============================================================
 
 \subsection*{Problem 5}
 
@@ -259,17 +266,17 @@ $\mathbb{Z}^*_p$ is cyclic when $p$ is prime.
 
 \begin{description}
 
-%=== PART A ====
+% ==== PART A ====
 \item[a.] Show that when $p \geq 3$ is prime, there are exactly two elements 
 $a \in \mathbb{Z}^*_p$ such that $a^2 = 1$.
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 
 It's easy to see that two solutions to $a^2 \equiv 1 \tmod{p}$, where 
 $p \geq 3$, are $a_1 = 1$ and $a_2 = p - 1$. The first is trivially true while 
 the second is easily shown below.
-	$$(p-1)^2 = p^2 - 2p + 1 \equiv 1 \tmod{p}.$$
+	\[ (p-1)^2 = p^2 - 2p + 1 \equiv 1 \tmod{p} \]
 Suppose there exists some $\tilde{a} \neq a_1 \neq a_2$ that also solves the 
 congruence. Then
 \begin{align*}
@@ -279,41 +286,42 @@ congruence. Then
 \end{align*}
 This means that $p \mid (\tilde{a} + 1)(\tilde{a} - 1)$ by definition. But if 
 $p \mid (\tilde{a} + 1)$, we have
-	$$\tilde{a} + 1 \equiv 0 \tmod{p} 
+	\[ \tilde{a} + 1 \equiv 0 \tmod{p} 
 	\quad \Rightarrow \quad 
-	\tilde{a} \equiv -1 \equiv p - 1 \equiv a_2 \tmod{p}.$$
+	\tilde{a} \equiv -1 \equiv p - 1 \equiv a_2 \tmod{p} \]
 On the other hand, if $p \mid (\tilde{a} - 1)$, we have 
 $\tilde{a} \equiv a_1 \tmod{p}$. This contradicts the existence of any 
 $\tilde{a}$ from our supposition. Thus the only solutions are 1 and $p-1$.
 
 \end{solution}
 
-%=== PART B ====
+% ==== PART B ====
 \item[b.] Show that when $p \geq 3$ is prime,
-	$$(p - 1)! \; \equiv \; -1 \tmod{p}.$$
+	\[ (p - 1)! \; \equiv \; -1 \tmod{p} \]
 Hint: $(p - 1)!$ is the product of all of the elements in the group 
 $\mathbb{Z}^*_p$. What are the multiplicative inverses of these elements? 
 Which are multiplicative inverses of themselves?
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 Of course it's true that
-	$$(p-1)! \; = \; (p-1)(p-2) \cdots 3 \cdot 2 \cdot 1$$
+	\[ (p-1)! \; = \; (p-1)(p-2) \cdots 3 \cdot 2 \cdot 1 \]
 where the right hand side of the equality consists of all the elements in 
 $\mathbb{Z}_p^*$. Moreover, all the elements are units! So for any element 
 $a \in \mathbb{Z}_p^*$, have $a^{-1} \in \mathbb{Z}_p^*$. It's certainly 
 possible that $a = a^{-1}$ for some $a$. However, our previous result 
 indicates that this only occurs for two numbers, namely 1 and $p-1$. If we 
 exclude those from product, we have
-	$$\underbrace{(p-2)(p-3) \cdots 3 \cdot 2}_{p-3 \text{ elements}}.$$
+	\[ \underbrace{(p-2)(p-3) \cdots 3 \cdot 2}_{p-3 \text{ elements}} \]
 Notice that $p-3$ is even since $p \geq 3$. Since this product is made up of 
 units, we may rewrite
-	$$(p-2)(p-3) \cdots 3 \cdot 2 
-	= \prod_{i=1}^{(p-3)/2} a_i \cdot a_i^{-1}.$$
+	\[ (p-2)(p-3) \cdots 3 \cdot 2 
+	= \prod_{i=1}^{(p-3)/2} a_i \cdot a_i^{-1} \]
 It follows that $(p-2)! \equiv 1 \tmod{p}$ and thus
-	$$(p-1)! = (p-1)(p-2)! \equiv p-1 \equiv -1 \tmod{p}.$$
+	\[ (p-1)! = (p-1)(p-2)! \equiv p-1 \equiv -1 \tmod{p} \]
 \end{solution}
 
 \end{description}
+
 
 \end{document}

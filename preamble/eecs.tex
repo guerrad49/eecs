@@ -11,6 +11,12 @@
 
 % \usepackage{caption}         % For \caption*.
 \usepackage{hyperref}          % For links within pdf (ToC).
+\hypersetup{
+    colorlinks=true, 
+    linkcolor=blue,
+    urlcolor=cyan,
+    citecolor=red
+    }
 \usepackage{subfiles}          % For handling separate files.
 
 \usepackage{colortbl}         % For table coloring.
@@ -41,6 +47,11 @@
 
 % Tight mod.
 \newcommand{\tmod}[1]{\mkern+4mu\mathrm{mod}\ #1}
+
+% Purple italic text.
+\newcommand{\purpText}[1]{
+    \textit{\textcolor{purple}{#1}}
+    }
 
 % Custom style for bar graphs.
 \pgfplotsset{

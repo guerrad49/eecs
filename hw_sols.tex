@@ -8,13 +8,18 @@
 
 
 \documentclass[answers]{exam}  % Exam document with answers.
+\usepackage[
+	backend=bibtex, 
+	style=numeric,
+	sorting=ydnt
+]{biblatex}
+\addbibresource{references.bib}
 
-% Preamble for EECS documents.
+% Main preamble for EECS documents.
 \input{preamble/eecs}
+
+% Defines style for \lstinputlisting.
 \input{preamble/lst_style_c}
-
-
-\usepackage{standalone}   % outside files
 
 % \usepackage{wrapfig}     % minipage
 
@@ -57,7 +62,7 @@
 
 		\vspace{2cm}
 
-		\textit{Solutions written by}:\\
+		{\large \textit{Solutions written by}:\\ }
 		{\large David Guerra}
 
 		\vfill
@@ -87,13 +92,13 @@
 \subfile{sections/hw01_custom}
 \newpage
 
-% \section{Homework 02}
-% \subfile{sections/hw02}
-% \newpage
+\section{Homework 02}
+\subfile{sections/hw02}
+\newpage
 
-% \section{Homework 03}
-% \subfile{sections/hw03}
-% \newpage
+\section{Homework 03}
+\subfile{sections/hw03}
+\newpage
 
 % \section{Homework 04}
 % \subfile{sections/hw04}
@@ -118,5 +123,10 @@
 % \section{Homework 09}
 % \subfile{sections/hw09}
 % \newpage
+
+\printbibliography[
+	heading = bibintoc, 
+	title   = {References}
+]
 
 \end{document}

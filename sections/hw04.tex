@@ -3,15 +3,15 @@
 
 \begin{document}
 
-%%=============================================================================
-%%=============================== PROBLEM 1 ===================================
-%%=============================================================================
+% =============================================================
+% ========================= PROBLEM 1 =========================
+% =============================================================
 
 \subsection*{Problem 1}
 
 Find the multiplicative inverse of each nonzero element in $\mathbb{Z}_7$.
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 The equivalences below show the multiplicative inverses.
 \begin{align*}
@@ -23,12 +23,9 @@ The equivalences below show the multiplicative inverses.
 \end{solution}
 
 
-\newpage
-
-
-%%=============================================================================
-%%=============================== PROBLEM 2 ===================================
-%%=============================================================================
+% =============================================================
+% ========================= PROBLEM 2 =========================
+% =============================================================
 
 \subsection*{Problem 2}
 
@@ -37,43 +34,45 @@ over a field.
 
 \begin{description}
 
-%=== PART B ====
-\item[(b)] The product of polynomials of degress $m$ and $n$ has degree $m+n$.
+% ==== PART B ====
+\item[b.] The product of polynomials of degress $m$ and $n$ has degree $m+n$.
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
-This statement is true. Take $f(x), g(x)$ to be polynomials over a field $F$. 
-We may write $f(x) = ax^{m} + f_1(x)$ and $g(x) = bx^{n} + g_1(x)$ for 
-$m,n \in \mathbb{Z}^+$ and $a,b \in \mathbb{Z}$, such that $\deg(f_1) < m$ and 
-$\deg(g_1) < n$. If $m$ or $n$ equal 0, then $f_1$ or $g_1$ equal 0 
-respectively. Then 
+This statement is true. Let 
+\begin{center}
+	$f(x) = ax^m + f_1(x)$ and $g(x) = bx^n + g_1(x)$
+\end{center}
+be polynomials over some field $F$ such that $\deg(f) = m$ and $\deg(g) = n$. 
+Compute 
 \begin{align*}
-	f(x) \; \cdot& \; g(x) \\
-	(ax^m + f_1(x))&(bx^n + g_1(x)) \\
-	abx^{m+n} \; + \; ax^mg_1(x) \; +& \; bx^nf_1(x) \; + \; f_1(x)g_1(x).
+	f(x) \; \cdot \; g(x) \; 
+	=& \; (ax^m + f_1(x)) (bx^n + g_1(x)) \\
+	=& \; abx^{m+n} \; + \; ax^mg_1(x) \; + \; bx^nf_1(x) \; + \; f_1(x)g_1(x)
 \end{align*}
-Notice that $\deg(ax^mg_1), \deg(bx^nf_1), \deg(f_1g_1) < m + n$. Since $F$ 
-is a field, then $f \cdot g \in F$. Furthermore, $\deg(f \cdot g) = m + n$.
+Since $\deg(f_1) < m$ and $\deg(g_1) < n$, it follows that 
+$\deg(x^mg_1)$, $\deg(x^nf_1)$, and $\deg(f_1g_1)$ are all less than $m + n$. 
+Thus, $\deg(f \cdot g) = m + n$.
 \end{solution}
 
-%=== PART A ====
-\item[(a)] The product of monic polynomials is monic.
+% ==== PART A ====
+\item[a.] The product of monic polynomials is monic.
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 This is merely a case of our previous proof. Let $a = b = 1$. This makes $f$ 
 and $g$ monic, which consequently means that $f \cdot g$ is monic via the 
-same steps in \textbf{(b)}.
+same steps in \textbf{b.}.
 \end{solution}
 
-%=== PART C ====
-\item[(c)] The sum of polynomials of degress $m$ and $n$ has degree max$[m,n]$.
+% ==== PART C ====
+\item[c.] The sum of polynomials of degress $m$ and $n$ has degree max$[m,n]$.
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 This is certainly false. Every element in a field $F$ has an additive inverse 
-so that $x \in F$ implies $-x \in F$. It's clear that 
-$x + (-x) = 0 \neq \max\{\deg(x),\deg(-x)\}$.
+so that $f \in F$ implies $f^{-1} \in F$. It's clear that 
+$f + f^{-1} = 0 \neq \max\{\deg(f),\deg(f^{-1})\}$.
 \end{solution}
 
 \end{description}
@@ -82,16 +81,16 @@ $x + (-x) = 0 \neq \max\{\deg(x),\deg(-x)\}$.
 \newpage
 
 
-%%=============================================================================
-%%=============================== PROBLEM 3 ===================================
-%%=============================================================================
+% =============================================================
+% ========================= PROBLEM 3 =========================
+% =============================================================
 
 \subsection*{Problem 3}
 
 Determine the multiplicative inverse of $x^3 + x + 1$ in GF$(2^4)$ with 
 $m(x) = x^4 + x + 1$.
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 
 It's simple enough to use the \textbf{Extended Euclidean Algorithm} to solve 
@@ -114,32 +113,28 @@ $\mathbb{Z}_2[x]/<x^4+x+1>$.
 \end{solution}
 
 
-\newpage
-
-
-%%=============================================================================
-%%=============================== PROBLEM 4 ===================================
-%%=============================================================================
+% =============================================================
+% ========================= PROBLEM 4 =========================
+% =============================================================
 
 \subsection*{Problem 4}
 
 Using Fermat's Theorem, find $3^{201} \tmod{11}$.
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 We know that since $\gcd(3,11) = 1$, then $3^{10} \equiv 1 \tmod{11}$ by 
 \textbf{Fermat's Little Theorem}. Thus, we have 
-	$$3^{201} = (3^{10})^{20} \cdot 3 
-	\equiv 1^{20} \cdot 3 \equiv 3 \tmod{11}.$$
+	\[ 3^{201} 
+	= (3^{10})^{20} \cdot 3 
+	\equiv 1^{20} \cdot 3 
+	\equiv 3 \tmod{11} \]
 \end{solution}
 
 
-\newpage
-
-
-%%=============================================================================
-%%=============================== PROBLEM 5 ===================================
-%%=============================================================================
+% =============================================================
+% ========================= PROBLEM 5 =========================
+% =============================================================
 
 \subsection*{Problem 5}
 
@@ -147,24 +142,26 @@ Using Fermat's Theorem to find a number $x$ between 0 and 28 with $x^{85}$
 congruent to 6 modulo 29. (You should not need to use any brute-force 
 searching).
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 Here we have the computational task of solving $x^{85} \equiv 6 \tmod{29}$. 
-Working in the field $\mathbb{Z}/29\mathbb{Z}$, call it $\mathbb{F}_{29}$, is 
-great since $\gcd(x,29) = 1$ for all $x \in \mathbb{F}_{29}$. Then we state an 
-alternate form of \textbf{FLT} that says $x^p \equiv x \tmod{p}$. This is easy 
-to see via multiplication. Thus we have
-	$$x^{85} = (x^{29})^2 \cdot x^{27} \equiv x^2 \cdot x^{27} 
-	\equiv x^{29} \equiv x \equiv 6 \tmod{29}.$$
+Since $\gcd(x,29) = 1$ for all $x \in \mathbb{Z}/29\mathbb{Z}$, we invoke 
+the alternate form of \textbf{FLT} that says $x^p \equiv x \tmod{p}$. Thus 
+	\[ x^{85} 
+	= (x^{29})^2 \cdot x^{27} 
+	\equiv x^2 \cdot x^{27} 
+	\equiv x^{29} 
+	\equiv x 
+	\equiv 6 \tmod{29} \]
 \end{solution}
 
 
 \newpage
 
 
-%%=============================================================================
-%%=============================== PROBLEM 6 ===================================
-%%=============================================================================
+% =============================================================
+% ========================= PROBLEM 6 =========================
+% =============================================================
 
 \subsection*{Problem 6}
 
@@ -172,73 +169,91 @@ Use Euler's Theorem to find a number $x$ between 0 and 28 with $x^{85}$
 congruent to 6 modulo 35. (You should not need to use any brute-force 
 searching).
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 
-This time we are required to solve $x^{85} \equiv 6 \tmod{35}$. Begin by 
-computing $\varphi(35)$ using \textbf{Euler's product formula}.
-	$$\varphi(35) 
-	= 35 \prod_{p \mid 35} \left( 1 - \frac{1}{p} \right) 
-	= 35 \left( 1 - \frac{1}{5} \right) \left( 1 - \frac{1}{7} \right) 
-	= 24$$
-Assume that $\gcd(x,35) = 1$. Then by \textbf{Euler's Theorem}, we have 
-	$$(x^{24})^3 \cdot x^{13}
-	 = (x^{\varphi(35)})^3 \cdot x^{13} 
-	\equiv x^{13} \equiv 6 \tmod{35}.$$
-While a brute-force approach wouldn't take as long now, it's not hard to solve 
-using the \textbf{Chinese Remainder Theorem}. We've like to solve the 
-simultaneous congruences 
-$x^{13} \equiv 6 \tmod{5}$ and $x^{13} \equiv 6 \tmod{7}$. We'll
-	$$x^{13} = (x^4)^3 \cdot x \equiv x \equiv 1 \tmod{5} \qquad 
-	\text{ and } 
-	\qquad x^{13} = (x^6)^2 \cdot x \equiv x \equiv 6 \tmod{7}.$$
-Now $x = 5y + 1$ for $y \in \mathbb{Z}$ so that via substitution 
-	$$5y + 1 \equiv 6 \tmod{7} 
+This time we are required to solve $x^{85} \equiv 6 \tmod{35}$. Using the 
+\textbf{Chinese Remainder Theorem}, we can write the system of congruences
+\begin{multicols}{2}
+\noindent
+\begin{align*}
+	x^{85} \equiv 6 &\equiv 1 \tmod{5} \\
+	   (x^4)^{21} x &\equiv 1 \tmod{5} \\
+	              x &\equiv 1 \tmod{5}
+\end{align*}
+\noindent
+\begin{align*}
+	      x^{85} &\equiv 6 \tmod{7} \\
+	(x^6)^{14} x &\equiv 6 \tmod{7} \\
+	           x &\equiv 6 \tmod{7}
+\end{align*}
+\end{multicols}
+
+Rewrite the first congruence as $x = 5t + 1$ for $t \in \mathbb{Z}$. Then 
+substitute into the second congruence so that
+	\[ (5t + 1) \equiv 6 \tmod{7} 
 	\quad \Rightarrow \quad 
-	y \equiv 1 \tmod{7}.$$
-Thus, $y = 7z + 1$ for $z \in \mathbb{Z}$ implies that 
-$x = 5(7z+1) + 1 = 35z + 6$, which equivalently means $x \equiv 6 \tmod{35}$. 
-Indeed, $\gcd(6,35) = 1$ and it's not hard to confirm with a computer that 
-our result works (at least for a power as small as 85).
+	t \equiv 1 \tmod{7} 
+	\quad \Rightarrow \quad 
+	t = 7k + 1 \quad \text{for } k \in \mathbb{Z} \]
+
+Lastly, back substitute to get
+	\[ x = 5(7k + 1) + 1 = 35k + 6 
+	\quad \Rightarrow \quad 
+	x \equiv 6 \tmod{35} \]
+
+Since $x$ must be between 0 and 28, $x$ must equal 6.
 
 \end{solution}
 
 
-\newpage
-
-
-%%=============================================================================
-%%=============================== PROBLEM 7 ===================================
-%%=============================================================================
+% =============================================================
+% ========================= PROBLEM 7 =========================
+% =============================================================
 
 \subsection*{Problem 7}
 
 The example used by Sun-Tsu to illustrate the CRT was
-	$$x \equiv 2 \tmod{3} \; 
+	\[ x \equiv 2 \tmod{3} \; 
 	; \; x \equiv 3 \tmod{5} \; 
-	; \; x \equiv 2 \tmod{7}$$
+	; \; x \equiv 2 \tmod{7} \]
 Solve for $x$ using the Chinese Remainder Theorem.
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 
-Given the three equivalence relations, we may rewrite the first as $x = 3y + 2$ 
-for $y \in \mathbb{Z}$. Note we've simply used the definition of equivalence. 
-Next we substitute into the second to get 
-	$$3y + 2 \equiv 3 \tmod{5} \quad 
-	\Rightarrow \quad 3y \equiv 1 \tmod{5} \quad 
-	\Rightarrow \quad y \equiv 2 \tmod{5}.$$
-But then, we rewrite 
-	$$x^{85} = (x^{29})^2 \cdot x^{27} \equiv x^2 \cdot x^{27} 
-	\equiv x^{29} \equiv x \equiv 6 \tmod{29}$$
-the result as $y = 5z + 2$ for $z \in \mathbb{Z}$, which implies that 
-$x = 3(5z + 2) + 2 = 15z + 8$. Substitute into the third equivalence to get 
-	$$15z + 8 \equiv 2 \tmod{7} 
+Rewrite the first congruence as
+\begin{equation}
+	x = 3t + 2 \quad \text{for } t \in \mathbb{Z}
+	\label{eq:first}
+\end{equation}
+
+Substitute \eqref{eq:first} into the second congruence so that 
+	\[ 3t + 2 \equiv 3 \tmod{5} 
 	\quad \Rightarrow \quad 
-	z \equiv 1 \tmod{7}.$$ 
-One last time, $z = 7w + 1$ for $w \in \mathbb{Z}$. Thus, 
-$x = 15(7w + 1) + 8 = 105w + 23$ means that $x \equiv 23 \tmod{105}$ by 
-definition.
+	t \equiv 2 \tmod{5} 
+	\quad \Rightarrow \quad 
+	t = 5k + 2 \quad \text{for } k \in \mathbb{Z} \]
+
+Then plugging back into \eqref{eq:first} yields 
+\begin{equation}
+	x = 15k + 8
+	\label{eq:second}
+\end{equation}
+
+Substitute \eqref{eq:second} into the third congruence so that
+	\[ 15k + 8 \equiv 2 \tmod{7} 
+	\quad \Rightarrow \quad 
+	k \equiv 1 \tmod{7} 
+	\quad \Rightarrow \quad 
+	k = 7w + 1 \quad \text{ for } w \in \mathbb{Z} \]
+
+One final substitution into \eqref{eq:second} yields
+	\[ x = 15(7w + 1) + 8 = 105w + 23 
+	\quad \Rightarrow \quad 
+	x \equiv 23 \tmod{105} \]
+
+Thus, one solution for $x$ can be 23.
 
 \end{solution}
 
@@ -246,49 +261,43 @@ definition.
 \newpage
 
 
-%%=============================================================================
-%%=============================== PROBLEM 8 ===================================
-%%=============================================================================
+% =============================================================
+% ========================= PROBLEM 8 =========================
+% =============================================================
 
 \subsection*{Problem 8}
+\label{prob8}
 
 Show that every integral domain has the \textit{cancellation property}: if 
 $a \neq 0$ and $ax = ay$, then $x = y$.
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
-Let $R$ be an integral domain with $a,x,y \in R$. Assume that $a \neq 0$ and 
-$ax = ay$. It follows that $a(x - y) = 0$. But $S$ has no zero divisors, so 
-either $a = 0$ or $x - y = 0$. Our assumption leads to the conclusion that 
-$x - y = 0 \quad \Rightarrow \quad x = y$. Hence the 
-\textit{cancellation property} holds in every integral domain.
+Take $a,x,y \in R$ an integral domain. Assume that $a \neq 0$ and $ax = ay$. 
+It follows that $a(x - y) = 0$. But since $a \neq 0$, then $x - y = 0$ or 
+rather $x = y$. Hence the \textit{cancellation property} holds in every 
+integral domain.
 \end{solution}
 
 
-\newpage
-
-
-%%=============================================================================
-%%=============================== PROBLEM 9 ===================================
-%%=============================================================================
+% =============================================================
+% ========================= PROBLEM 9 =========================
+% =============================================================
 
 \subsection*{Problem 9}
 
 Show that every finite integral domain is a field.
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
-Let $R$ be an integral domain. Assume that $|R| = m \in \mathbb{Z}^+$ and 
-consider $R/\{0\}$. Now take $a,r_i \in R/\{0\}$ and look at the products 
-$ar_i$. We claim that each product is different. The product is clearly a map 
-$f: R/\{0\} \to R/\{0\}$. If $f$ is a bijection, we're done. Well, take 
-$r_i, r_j \in R/\{0\}$ with $f(r_i) = f(r_j)$, then 
-$ar_i = ar_j \quad \Rightarrow \quad r_i = r_j$ since $R$ has the cancellation 
-property. This shows that $f$ is injective. However since $R/\{0\}$ is finite, 
-$f$ is also surjective, hence bijective. This means that there must exist some 
-$r_i$ such that $f(r_i) = ar_i = 1$. Notice that $1 \in R$ because it's an 
-integral domain. Thus every nonzero element of $R$ is a unit which means $R$ 
-is a field.
+Let $R$ be an integral domain. Let $a \in R$ such that $a \neq 0$ and 
+consider the map $f: R \to R$ where $f(x) = ax$. By \nameref{prob8}, we know 
+that $f$ is injective since $ax = ay \quad \Rightarrow \quad x = y$. Now, 
+since $R$ is finite and injective, then $f$ is also surjective. This means 
+that there exist some $b \in R$ such that $ab = 1$ for any $a \in R$. Thus, 
+every nonzero element of $R$ has a multiplicative inverse and $R$ is 
+consequently a field.
 \end{solution}
+
 
 \end{document}

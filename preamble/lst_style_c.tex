@@ -11,7 +11,8 @@
 \definecolor{vsFunction}{HTML}{A57D02}
 
 % Define style for C language.
-\lstdefinestyle{vsLight}{
+\lstdefinestyle{myCStyle}{
+    language    = C,
     aboveskip   = 5pt,
     breaklines  = true,
     numbers     = left,
@@ -43,66 +44,23 @@
     emph      = [3]{FILE, uint8_t, uint32_t, uint64_t}
 }
 
-
-% % Define VSCode Dark+ Colors.
-% \definecolor{vsBackground}{HTML}{1E1E1E}
-% \definecolor{vsForeground}{HTML}{D4D4D4}
-% \definecolor{vsKeyword}{HTML}{569CD6}       % int, double, etc.
-% \definecolor{vsControl}{HTML}{C586C0}       % return, if, else, etc.
-% \definecolor{vsString}{HTML}{CE9178}
-% \definecolor{vsNumber}{HTML}{B5CEA8}
-% \definecolor{vsFunction}{HTML}{DCDCAA}
-% \definecolor{vsType}{HTML}{4EC9B0}          % FILE.
-% \definecolor{vsComment}{HTML}{6A9955}       % Inline comments //.
-% \definecolor{vsPreprocessor}{HTML}{C586C0}  % include, define, etc.
-
-
-% % Define style.
-% \lstdefinestyle{vsDark}{%
-%     aboveskip = 5pt,
-%     breaklines = true,
-%     firstnumber = 1,
-%     numbers = left,
-%     numbersep = 8pt,
-%     backgroundcolor = \color{vsBackground},
-%     basicstyle      = \ttfamily\small\color{vsForeground},    
-%     showstringspaces = false,
-%     stringstyle = \color{vsString},
-%     commentstyle = \color{vsComment}\itshape,
-%     morekeywords = [1]{include, define},
-%     keywordstyle = [1]\color{vsPreprocessor},
-%     emph      = [1]{%
-%         int, double, char, bool, void, sizeof, 
-%         TRIALS, ALPHA_SIZE, CIPHER_SIZE
-%         },
-%     emphstyle = [1]\color{vsKeyword},
-%     emph      = [2]{return, if, else, for, break, continue},
-%     emphstyle = [2]\color{vsControl},
-%     emph      = [3]{%
-%         fopen, fclose, fread, fscanf, pow, ceil, 
-%         main, malloc, free, printf, 
-%         readCipher, getAverageIOCs, setFrequency, getIOC, 
-%         getBestKeySize, setEngFrequency, setCaesarShift, 
-%         getChiSq, getChiMin, getDecrypt
-%         },
-%     emphstyle = [3]\color{vsFunction},
-%     emph      = [4]{FILE},
-%     emphstyle = [4]\color{vsType},
-%     literate = *%
-%         {0}{{\textcolor{vsNumber}{0}}}{1}%
-%         {1}{{\textcolor{vsNumber}{1}}}{1}%
-%         {2}{{\textcolor{vsNumber}{2}}}{1}%
-%         {3}{{\textcolor{vsNumber}{3}}}{1}%
-%         {4}{{\textcolor{vsNumber}{4}}}{1}%
-%         {5}{{\textcolor{vsNumber}{5}}}{1}%
-%         {6}{{\textcolor{vsNumber}{6}}}{1}%
-%         {7}{{\textcolor{vsNumber}{7}}}{1}%
-%         {8}{{\textcolor{vsNumber}{8}}}{1}%
-%         {9}{{\textcolor{vsNumber}{9}}}{1}%
-%         {(}{{\textcolor{vsControl}{(}}}{1}%
-%         {)}{{\textcolor{vsControl}{)}}}{1}%
-%         {[}{{\textcolor{vsControl}{[}}}{1}%
-%         {]}{{\textcolor{vsControl}{]}}}{1}%
-%         {\{}{{\textcolor{vsControl}{\{}}}{1}%
-%         {\}}{{\textcolor{vsControl}{\}}}}{1}%
-% }
+% Define style for Python language.
+\lstdefinestyle{myPyStyle}{
+    language    = Python,
+    aboveskip   = 5pt,
+    breaklines  = true,
+    numbers     = left,
+    numbersep   = 5pt,     % Placement in
+    xleftmargin = 10pt,    % solution box.
+    basicstyle   = \ttfamily\small\color{vsForeground},
+    numberstyle  = \tiny\color{gray},
+    commentstyle = \color{vsComment}\itshape,
+    stringstyle      = \color{vsString},
+    showstringspaces = false,
+    keywordstyle = [1]\color{vsKeyword},
+    morekeywords = [1]{INF},
+    emphstyle = [1]\color{vsControl},
+    emph      = [1]{if, else, elif, return},
+    emphstyle = [2]\color{vsFunction},
+    emph      = [2]{print, pow, slope, ec_sum},
+}

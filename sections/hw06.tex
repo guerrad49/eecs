@@ -1,0 +1,214 @@
+\documentclass[../hw_sols.tex]{subfiles}
+\setlist[description]{style = unboxed, leftmargin = 0.55cm}
+
+\begin{document}
+
+% =============================================================
+% ======================== PROBLEM 10.2 =======================
+% =============================================================
+
+\subsection*{Problem 10.2}
+
+Alice and Bob use the Diffie-Hellman key exchange technique with a common 
+prime $q = 23$ and a primitive root $\alpha = 5$.
+
+\begin{description}
+
+% ==== PART A ====
+\item[(a)] If Bob has a public key $Y_B = 10$, what is Bob's private key $X_B$?
+
+% ==== SOLUTION ====
+\begin{solution}
+The equivalence $Y_B = \alpha^{X_B} \tmod{23}$ implies we need to solve 
+$10 = 5^{X_B} \tmod{23}$ for Bob's private key. Some trial and error shows 
+that $X_B = 3$.
+\end{solution}
+
+% ==== PART B ====
+\item[(b)] If Alice has a public key $Y_A = 8$, what is the shared key $K$ 
+with Bob?
+
+% ==== SOLUTION ====
+\begin{solution}
+The shared key is computed as shown below.
+	\[ K = (Y_A)^{X_B} = 8^3 \equiv 6 \tmod{23} \]
+\end{solution}
+
+% ==== PART C ====
+\item[(c)] Show that 5 is a primitive root of 23.
+
+% ==== SOLUTION ====
+\begin{solution}
+To show 5 is a primitive root of 23, we need to show the order of 5 is 22. 
+This is verified in the summarized table below.
+\begin{center}
+\begin{tabular}{ c | *{7}{c} }
+	$i$ & 1 & 2 & 3 & 4 & $\dots$ & 21 & 22 \\
+	\hline
+	$5^i \pmod{23}$ & 5 & 2 & 10 & 4 & $\dots$ & 14 & 1
+\end{tabular}
+\end{center}
+\end{solution}
+
+\end{description}
+
+
+% =============================================================
+% ======================== PROBLEM 10.6 =======================
+% =============================================================
+
+\subsection*{Problem 10.6}
+
+Suppose Alice and Bob use an Elgamal scheme with a common prime $q = 157$ and 
+a primitive root $\alpha = 5$.
+
+\begin{description}
+
+% ==== PART A ====
+\item[(a)] If Bob has public key $Y_B = 10$ and Alice chose the random 
+integer $k = 3$, what is the ciphertext of $M = 9$?
+
+% ==== SOLUTION ====
+\begin{solution}
+First compute the one-time key $K = (Y_B)^k \tmod{q}$, or rather, 
+$K = 10^3 \equiv 58 \tmod{157}$. Then, compute
+	\[ C_1 = \alpha^k \equiv 125 \tmod{157} 
+	\quad \text{ and } \quad
+	C_2 = KM \equiv 51 \tmod{157} \]
+and encrypt $M$ as the pair $(125, 51)$.
+\end{solution}
+
+% ==== PART B ====
+\item[(b)] If Alice now chooses a different value of $k$ so that the encoding 
+of $M = 9$ is $C = (25, C_2)$, what is the integer $C_2$?
+
+% ==== SOLUTION ====
+\begin{solution}
+Know that $C_1 = 25 = 5^k \tmod{157}$ where it's clear that $k = 2$. This 
+allows us to compute \newline
+$K = 10^2 \equiv 100 \tmod{157}$ and thus 
+$C_2 = 100 \cdot 9 \equiv 115 \tmod{157}$.
+\end{solution}
+
+\end{description}
+
+
+\newpage
+
+% =============================================================
+% ======================= PROBLEM 10.11 =======================
+% =============================================================
+
+\subsection*{Problem 10.11}
+
+Does the elliptic curve equation $y^2 = x^3 + x + 2$ define a group over 
+$\mathbb{Z}_7$?
+
+% ==== SOLUTION ====
+\begin{solution}
+Notice that in the elliptic curve, $a = 1$ and $b = 2$. If the equation 
+defines a group, we need to verify $4a^3 + 27b^2 \neq 0$. Well,
+	\[ 4(1)^3 + 27(2)^2 \equiv 0 \tmod{7} \]
+and hence the elliptic curve does not define a group over $\mathbb{Z}_7$.
+\end{solution}
+
+
+% =============================================================
+% ======================= PROBLEM 10.12 =======================
+% =============================================================
+
+\subsection*{Problem 10.12}
+
+Consider the elliptic curve $E_7(2,1)$; that is, the curve is defined by 
+$y^2 = x^3 + 2x + 1$ with a modulus of $p = 7$. Determine all of the points 
+in $E_7(2, 1)$. Hint: Start by calculating the right-hand side of the 
+equation for all values of $x$.
+
+% ==== SOLUTION ====
+\begin{solution}
+Let $f(x) = x^3 + 2x + 1$ and $g(y) = y^2$. Compute 
+
+\begin{minipage}{0.45\textwidth}
+\centering
+\begin{tabular}{ c | *{7}{c} }
+				$x$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\ \hline
+	$f(x) \tmod{7}$ & 1 & 4 & 6 & 6 & 3 & 3 & 5
+\end{tabular}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+\centering
+\begin{tabular}{ c | *{7}{c} }
+				$y$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\ \hline
+	$g(y) \tmod{7}$ & 0 & 1 & 4 & 2 & 2 & 4 & 1
+\end{tabular}
+\end{minipage}
+
+If a point is to lie on $E_7(2,1)$, then $f(x) = g(y)$. The only outputs from 
+both tables that match are 1 and 4. Thus, all the points on $E_7(2,1)$ are 
+$(0,1), (0,6), (1,2),$ and $(1,5)$.
+\end{solution}
+
+
+\newpage
+
+
+% =============================================================
+% ======================= PROBLEM 10.15 =======================
+% =============================================================
+
+\subsection*{Problem 10.15}
+
+This problem performs elliptic curve encryption/decryption using the scheme 
+outlined in Section 10.4. The cryptosystem parameters are $E_{11}(1, 7)$ and 
+$G = (3,2)$. B's private key is $n_B = 7$.
+
+\begin{description}
+
+% ==== PART A ====
+\item[(a)] Find B's public key $P_B$.
+
+% ==== SOLUTION ====
+\begin{solution}
+User $B$'s public key is determined by $7G$. Start by implementing addition 
+over $E_{11}(1,7)$ as shown in the python script 
+\purpText{scripts/ec\_add.py}.
+
+% VSCode snippet.
+\lstinputlisting[style = myPyStyle]{ec_add.py}
+
+One way to compute $7G$ is to first compute $2G = G + G$, then 
+$4G = 2G + 2G$, then $6G = 4G + 2G$ and finally $7G = 6G + G = (6,8)$.
+\end{solution}
+
+% ==== PART B ====
+\item[(b)] A wishes to encrypt the message $P_m = (10,7)$ and chooses the 
+random value $k = 5$. Determine the ciphertext $C_m$.
+
+% ==== SOLUTION ====
+\begin{solution}
+To encrypt $P_m = (10,7)$, user A must compute the pair of points
+	\[ C_m = \{kG, P_m + kP_B\} \]
+Well 
+	\[ kG = 5 (3,2) = (4,8)
+	\qquad \text{and} \qquad
+	P_m + kP_B = (10,7) + 5(6,8) = (1,8) \]
+
+Thus, A encrypts $P_m$ as $C_m = \{(4,8),(1,8)\}$.
+\end{solution}
+
+% ==== PART C ====
+\item[(c)] Show the calculation by which B recovers $P_m$ from $C_m$.
+
+% ==== SOLUTION ====
+\begin{solution}
+User B recovers $P_m$ as follows
+	\[ (P_m + kP_B) - n_B(kG) \; 
+	= \; (1,8) - 7(4,8) \; 
+	= \; (1,8) - (4,8) \; 
+	= \; (10,7) \; = \; P_m \]
+\end{solution}
+
+\end{description}
+
+
+\end{document}

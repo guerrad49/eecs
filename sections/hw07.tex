@@ -1,0 +1,219 @@
+\documentclass[../hw_sols.tex]{subfiles}
+\setlist[description]{style = unboxed, leftmargin = 0.55cm}
+
+\begin{document}
+
+% =============================================================
+% ======================== PROBLEM 11.2 =======================
+% =============================================================
+
+\subsection*{Problem 11.2}
+
+\begin{description}
+
+% ==== PART A ====
+\item[a.] Consider the Davies and Price hash code scheme described in 
+Section 11.4 and assume that DES is used as the encryption algorithm:
+	\[ H_i = H_{i-1} \oplus E(M_i, H_{i-1}) \]
+Recall the complementarity property of DES (Problem 3.14): If $Y = E(K, X)$, 
+then $Y' = E(K', X')$. Use this property to show how a message consisting of 
+blocks $M_1, M_2, \dots, M_N$ can be altered without altering its hash code.
+
+% ==== SOLUTION ====
+\begin{solution}
+
+Consider altering a message consisting of blocks 
+$\mathbf{M_1}, \dots, \mathbf{M_N}$ by taking their complements 
+$\mathbf{M_1}', \dots, \mathbf{M_N}'$. With access to the initial value 
+$\mathbf{H_0}$, we can construct all $\mathbf{H_{i-1}}'$ for $i>0$. This is 
+because
+\begin{align*}
+	\mathbf{H_i} \; 
+	=& \; \mathbf{H_{i-1}} \oplus E(\mathbf{M_i}, \mathbf{H_{i-1}}) \\
+	=& \; \mathbf{H_{i-1}}' \oplus E(\mathbf{M_i}', \mathbf{H_{i-1}}')
+\end{align*}
+
+by the complementarity property of DES and because 
+$X \oplus Y = X' \oplus Y'$ as shown below
+\begin{center}
+\begin{tabular}{c c c c}
+	$X$ & $Y$ & $X \oplus Y$ & $X' \oplus Y'$ \\
+	\hline
+	0 & 0 & 0 & 0 \\
+	0 & 1 & 1 & 1 \\
+	1 & 0 & 1 & 1 \\
+	1 & 1 & 0 & 0 \\
+\end{tabular}
+\end{center}
+
+Thus, the block messages $\mathbf{M_i}$ can be altered and without altering 
+$\mathbf{H_i}$ and consequently the entire hash code.
+
+\end{solution}
+
+% ==== PART B ====
+\item[b.] Show that a similar attack will succeed against the scheme proposed 
+in [MEYE88]:
+	\[ H_i = M_i \oplus E(H_{i-1}, M_i) \]
+
+% ==== SOLUTION ====
+\begin{solution}
+As in part \textbf{a.}, with access to the initial value $\mathbf{H_0}$, we 
+alter blocks $\mathbf{M_i}$ so that
+\begin{align*}
+	\mathbf{H_i} \; 
+	=& \; \mathbf{M_i} \oplus E(\mathbf{H_{i-1}}, \mathbf{M_i}) \\
+	=& \; \mathbf{M_i}' \oplus E(\mathbf{H_{i-1}}', \mathbf{M_i}')
+\end{align*}
+This shows that all $\mathbf{H_i}$ are unaltered.
+\end{solution}
+
+\end{description}
+
+
+\newpage
+
+
+% =============================================================
+% ======================== PROBLEM 11.3 =======================
+% =============================================================
+
+\subsection*{Problem 11.3}
+
+\begin{description}
+
+% ==== PART A ====
+\item[a.] Consider the following hash function. Messages are in the form of a 
+sequence of numbers in $Z_n, M = (a_1, a_2, \dots a_t)$. The hash value $h$ 
+is calculated as $\displaystyle \left( \sum_{i=1}^t a_i \right)$ for some 
+predefined value $n$. Does this hash function satisfy any of the requirements 
+for a hash function listed in Table 11.1? Explain your answer.
+
+% ==== SOLUTION ====
+\begin{solution}
+The \textit{Efficiency} requirement of Table 11.1 is satisfied since it is 
+relatively easy to compute the finite sum of $a_i$.
+\end{solution}
+
+% ==== PART B ====
+\item[b.] Repeat part \textbf{a.} for the hash function 
+$\displaystyle \left( \sum_{i=1}^t (a_i)^2 \right) \tmod{n}$.
+
+% ==== SOLUTION ====
+\begin{solution}
+Once again, the \textit{Efficiency} requirement is met. Computing the square 
+of a number is relatively easy as there are short and fast algorithms for 
+doing so. Lastly, taking the sum modulo $n$ can be applied at each step 
+for more efficiency.
+\end{solution}
+
+% ==== PART C ====
+\item[c.] Calculate the hash function of part \textbf{b.} for 
+$M = (189, 632, 900, 722, 349)$ and $n = 989$.
+
+% ==== SOLUTION ====
+\begin{solution}
+Here we compute the hash value $h$ as shown below.
+\begin{align*}
+	h \; 
+	=& \; \left(\sum_{i=1}^{5} (a_i)^2 \right) \pmod{989} \\
+	=& \; 189^2 + 632^2 + 900^2 + 722^2 + 349^2 \pmod{989} \\
+	=& \; 229 \pmod{989}
+\end{align*}
+\end{solution}
+
+\end{description}
+
+
+\newpage
+
+
+% =============================================================
+% ========================= PROBLEM 1 =========================
+% =============================================================
+
+\subsection*{Problem 1}
+
+The Dual Elliptic Curve Deterministic Random Bit Generator (Dual EC DRBG) is 
+a pseudorandom generator (PRG) that was one of four PRGs described in the 
+NIST standard SP 800-90A published around March 2007. Documents leaked by 
+Edward Snowden in 2013 indicated that that NSA had taken over the 
+standardization from NIST during the inception of the project and had 
+engineered a backdoor that would allow it to easily predict the bit sequence 
+from a very small sample. NIST released a statement saying that "NIST would 
+not deliberately weaken a cryptographic standard." A Presidential advisory 
+group set up to investigate the NSA's role found that the NSA had put in a 
+backdoor and recommended that the US government "fully support and not 
+undermine efforts to create encryption standards." On April 21, 2014 NIST 
+withdrew Dual EC DRBG and recommended that "current users of Dual EC DRBG 
+transition to one of the three remaining approved algorithms as quickly as 
+possible."
+
+The Dual EC DRBG specifies a 256-bit prime p (congruent to 3 mod 4) that is 
+very close to $2^{256}$, an elliptic curve $E_p(a, b)$, and two points $P$ 
+and $Q$ on the curve. (It is not important to know the exact values of 
+$p, a, b, P$ and $Q$ for this problem.) The number points $n$ on the curve is 
+also given in the specification; $n$ is prime so the elliptic curve group is 
+cyclic. The algorithm takes a 256-bit seed $x_0$ as input. It generates a 
+sequence of values $x_1, x_2, \dots, x_k$ by repeatedly computing points 
+$(x_1, y_1), (x_2, y_2), \dots, (x_k, y_k)$ on the elliptic curve by
+	$$(x_{i+1}, y_{i+1}) = x_i \cdot P,$$
+for $i = 0, 1, \dots,k-1$. Thus, we view each $x_i$ both as an element of 
+$\mathbb{Z}^*_p$ and as a 256-bit integer used to specify the number of times 
+$P$ is added.
+
+From $x_1, x_2, \dots, x_k$ we derive another sequence 
+$x'_1, x'_2, \dots, x'_k$ by computing $(x'_i, y'_i) = x_i \cdot Q$ for 
+$i = 1, 2, \dots, k$. From each 256-bit integer $x'_i$ we form a 240-bit 
+integer $z_i$ by deleting the 16 most significant bits. The random bit string 
+output by the algorithm is the concatenation $z_1 z_2 \dots z_k$.
+
+\begin{description}
+
+% ==== PART A ====
+\item[a.] Suppose that $P$ and $Q$ were chosen so that for some integer $d$ 
+(known to the NSA), $Q = d \cdot P$. Show how to efficiently compute $e$ so 
+that $P = e \cdot Q$.
+
+% ==== SOLUTION ====
+\begin{solution}
+Since $d \in \mathbb{Z}_p^*$, then $d$ has a unique inverse $e$. This means 
+solving $de \equiv 1 \tmod{n}$ using, say, the Euclidean Algorithm, yields 
+the desired value $e$ relatively easily.
+\end{solution}
+	
+% ==== PART B ====
+\item[b.] Show that $(x_{i+1}, y_{i+1}) = e \cdot (x'_i, y'_i)$ for 
+$i = 1, 2, \dots, k-1$.
+
+% ==== SOLUTION ====
+\begin{solution}
+Using the definitions above and the result from \textbf{a.}, we have
+	\[ (x_{i+1}, y_{i+1}) 
+	= x_i \cdot P 
+	= x_i \cdot e \cdot Q 
+	= e \cdot (x_i', y_i') \]
+\end{solution}
+	
+% ==== PART C ====
+\item[c.] Suppose that the NSA has intercepted $z_1 z_2$. Show that it 
+can efficiently compute the remaining part of the \newline 
+pseudorandom sequence $z_3 z_4 \dots z_k$ (with high probability). 
+(Hint: $2^{17}$ is not a very large number when you are searching.)
+
+% ==== SOLUTION ====
+\begin{solution}
+Let $x_1 = b_0 b_1 \dots b_{15} \Vert z_1$ for $b_i \in \mathbb{Z}_2$. Know 
+that $(x_2, y_2) = x_1 \cdot P$. If $z_1$ and $z_2$ are intercepted, one 
+could try $2^{16}$ combinations of $b_0 b_1 \dots b_{15}$ and compute each 
+	\[ (\tilde{x}_2, \tilde{y}_2) = \tilde{x}_1 \cdot P \]
+for each candidate $\tilde{x}_1$. If 
+$\tilde{x}_2 = c_0 c_1 \dots c_{15} \Vert z_2$ for $c_i \in \mathbb{Z}_2$, 
+one can assert with high probability that $\tilde{x}_2 = x_2$. From here, 
+it's easy to compute the rest of the sequence $z_3 z_4 \dots z_k$ as the 
+sender does.
+\end{solution}
+
+\end{description}
+
+\end{document}

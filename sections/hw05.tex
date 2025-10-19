@@ -1,74 +1,70 @@
 \documentclass[../hw_sols.tex]{subfiles}
 \setlist[description]{style = unboxed, leftmargin = 0.55cm}
 
-
 \begin{document}
 
-%%=============================================================================
-%%=============================== PROBLEM 2.31 ================================
-%%=============================================================================
+% =============================================================
+% ======================== PROBLEM 2.31 =======================
+% =============================================================
 
 \subsection*{Problem 2.31}
 
-Show that, if $n$ is an odd composite integer, then the Miller-Rabin test will 
-return inconclusive for $a = 1$ and $a = (n - 1)$.
+Show that, if $n$ is an odd composite integer, then the Miller-Rabin test 
+will return inconclusive for $a = 1$ and $a = (n - 1)$.
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 
-Take a composite $n \in \mathbb{O}$. We can show the result by following each 
-step of the algorithm.
+For a composite $n \in \mathbb{O}$, suppose we find integers $k,q$ such that 
+$n - 1 = 2^k \cdot q$ as stated on pg 69 of \cite{textbook}.
 
 \begin{itemize}
 
-\item Let $a = 1$. Clearly $\gcd(a,n) = 1$ so we proceed. Factor 
-$n-1 = 2^k \cdot m$ where $m \in \mathbb{O}$. Then $a_0 = a^m = 1 \tmod{n}$ 
-and we are done. The test determines $a = 1$ as a prime.
-	
-\item Let $a = n-1$. Here $\gcd(a,n) = 1$ as well so we proceed. Factor as 
-before so $n-1=2^k\cdot m$. Since $m$ is odd, write $m = 2l + 1$ for some 
-integer $l$. We now compute $a_0 = (n-1)^m \tmod{n}$ where
-	$$(n-1)^m = (n-1)^{2l+1} = (n-1)^{2l}(n-1) 
-	\equiv 
-	(-1)^{2l}(-1) \equiv -1 \tmod{n}.$$
-Thus we have $a_0 = -1 \tmod{n}$ and the test determines $a = n-1$ as a prime.
+\item If $a = 1$, then $a^q \tmod{n}$ is always 1 for any $q$ and $n$. The 
+test concludes at line 3.
+
+\item If $a = n-1$, then since $q$ is odd, 
+\begin{align*}
+	(n - 1)^q \tmod{n} \; 
+	\equiv& \; (-1)^q \tmod{n} \\
+	=& \; -1 \tmod{n} \\
+	\equiv& \; n - 1.
+\end{align*}
+The test concludes at line 5 for the first iteration of $j$ (i.e. $j=0$).
 
 \end{itemize}
+
+In both cases, the Miller-Rabin test returns "inconclusive" for both $a = 1$ 
+and $a = n - 1$.
 
 \end{solution}
 
 
-\newpage
-
-
-%%=============================================================================
-%%=============================== PROBLEM 2.32 ================================
-%%=============================================================================
+% =============================================================
+% ======================== PROBLEM 2.32 =======================
+% =============================================================
 
 \subsection*{Problem 2.32}
 
 If $n$ is composite and passes the Miller-Rabin test for the base $a$, then 
-$n$ is called a strong pseudoprime to the base $a$. Show that 2047 is a strong 
-pseudoprime to the base 2.
+$n$ is called a strong pseudoprime to the base $a$. Show that 2047 is a 
+strong pseudoprime to the base 2.
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
-Begin with $a = 2$ and $n = 2047$ where $\gcd(2,2047) = 1$. Furthermore, 
-$n-1 = 2046 = 2^1 \cdot 1023 = 2^k \cdot m$. Since $k=1$, we only need to 
-compute $a_0$. Notice that $1023 = 99 \cdot 11$. Thus
-	$$a_0 = 2^{1023} = (2^{11})^{99} = (2048)^{99} 
-	\equiv 1^{99} 
-	\equiv 1 \tmod{2047}$$
-which means 2047 passes the \textbf{MRPT} and we say that it is a strong 
-pseudoprime to the base 2.
+Begin with the factorization $n - 1 = 2046 = 2^1 \cdot 1023$. The first check 
+	\[ 2^{1023} = (2^{11})^{99} = 2048^{99} \equiv 1 \tmod{2047} \]
+passes the \textbf{MRPT} and we say 2047 is a strong pseudoprime to the 
+base 2.
 \end{solution}
 
 
 \newpage
 
-%%=============================================================================
-%%================================ PROBLEM 7.4 ================================
-%%=============================================================================
+
+% =============================================================
+% ======================== PROBLEM 7.4 ========================
+% =============================================================
 
 \subsection*{Problem 7.4}
 
@@ -79,42 +75,37 @@ $C_1$ (Figure 7.4) obviously corrupts $P_1$ and $P_2$.
 
 \begin{description}
 
-%=== PART A ====
+% ==== PART A =====
 \item[(a)] Are any blocks beyond $P_2$ affected?
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
-Blocks beyond $\mathbf{P_2}$ are not affected. In the encryption stage, 
-$\mathbf{C_1}$ is no longer required after computing 
-$\mathbf{C_1} \oplus \mathbf{P_2}$. Once $\mathbf{C_2}$ is generated, we 
-require an error-less transmission so that $\mathbf{P_3}$ is decrypted 
-correctly. We emphasize that $\mathbf{C_1}$ is NOT used in the decryption of 
-$\mathbf{P_3}$.
+No. Know that 
+$\mathbf{C_2} \oplus D(K, \mathbf{C_3}) = \mathbf{P_3}$	
+is the first round not affected by an error in $\mathbf{C_1}$. If we assume 
+there are no more transmission errors on $\mathbf{C_j}$ for $j > 2$, then no 
+blocks beyond $\mathbf{P_2}$ are affected.
 \end{solution}
 
-%=== PART B ====
+% ==== PART B =====
 \item[(b)] Suppose that there is a bit error in the source version of $P_1$. 
 Through how many ciphertext blocks is this error propagated? What is the 
 effect at the receiver?
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 A bit error in the source version of $\mathbf{P_1}$ is propagated through all 
-the cipher blocks. This is due to the chained dependence that all cipher 
-blocks $\mathbf{C_i}$ have on $\mathbf{P_1}$. Since the receiver now has 
-incorrect cipher blocks $\mathbf{C_i}$, then the decryption of $\mathbf{P_i}$ 
-will be incorrect as well.
+the cipher blocks. This is due to the chained dependence 
+$\mathbf{C_{j-1}} \to \mathbf{P_j}$. The receiver should have erroneous 
+versions of all $\mathbf{C_j}$ and thus fail to decrypt.
 \end{solution}
 
 \end{description}
 
 
-\newpage
-
-
-%%=============================================================================
-%%================================ PROBLEM 7.7 ================================
-%%=============================================================================
+% =============================================================
+% ======================== PROBLEM 7.7 ========================
+% =============================================================
 
 \subsection*{Problem 7.7}
 
@@ -122,13 +113,13 @@ For the ECB, CBC, and CFB modes, the plaintext must be a sequence of one or
 more complete data blocks (or, for CFB mode, data segments). In other words, 
 for these three modes, the total number of bits in the plaintext must be a 
 positive multiple of the block (or segment) size. One common method of 
-padding, if needed, consists of a 1 bit followed by as few zero bits, possibly 
-none, as are necessary to complete the final block. It is considered good 
-practice for the sender to pad every message, including messages in which the 
-final message block is already complete. What is the motiva- tion for 
+padding, if needed, consists of a 1 bit followed by as few zero bits, 
+possibly none, as are necessary to complete the final block. It is considered 
+good practice for the sender to pad every message, including messages in 
+which the final message block is already complete. What is the motivation for 
 including a padding block when padding is not needed?
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
 Padding every message could be a way of signaling the end of a message. More 
 so, it can be a way of error checking. If there is tampering with the 
@@ -141,39 +132,36 @@ different from what he/she expects or has agreed upon with the sender.
 \newpage
 
 
-%%=============================================================================
-%%================================ PROBLEM 7.8 ================================
-%%=============================================================================
+% =============================================================
+% ======================== PROBLEM 7.8 ========================
+% =============================================================
 
 \subsection*{Problem 7.8}
 
 If a bit error occurs in the transmission of a ciphertext character in 8-bit 
 CFB mode, how far does the error propagate?
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
-Suppose we have a bit error in the transmission of $\mathbf{C_j}$, call the 
-error $\mathbf{\tilde{C_j}}$. The receiver will compute 
-$\mathbf{\tilde{C_j}} \oplus \text{MSB}_s(O_j) = \mathbf{\tilde{P_j}}$. Here 
-$\mathbf{\tilde{P_j}}$ may not differ all that much from $\mathbf{P_j}$ since 
-$\mathbf{C_j}$ was utilized at the end of decryption. However, there is a 
-much bigger consequence in the $(j+1)^{\text{th}}$ step of decryption. Since 
-$I_{j+1} = \text{LSB}_{b-s}(I_j) \Vert \mathbf{C_j}$, it is clear that 
-$I_{j+1}$ depends on $\mathbf{C_j}$. Consequently, using 
-$\mathbf{\tilde{C_j}}$ results in $\tilde{I}_{j+1}$. Furthermore, $O_{j+1}$ 
-depends on $I_{j+1}$ and $\mathbf{P_{j+1}}$ depends on $O_{j+1}$. Thus, we can 
-be sure that decryption of $\mathbf{C_{j+1}}$ is significantly altered. 
-However, this is where error propagation stops since nothing else is dependent 
-on $\mathbf{C_j}$.
+Suppose we have a bit error in the trasmission of $\mathbf{C_j}$. Certainly 
+$\mathbf{P_j}$ is affected directly because 
+$\mathbf{P_j} = \mathbf{C_j} \oplus \text{MSB}_s(O_j)$. However, notice 
+the dependency chain $C_j \to I_{j+1} \to O_{j+1} \to P_{j+1}$. This means 
+that 
+\begin{itemize}
+	\item $\mathbf{P_{j+1}}$ is altered and
+	\item $I_{j+2}$ is altered because $I_{j+1} \to I_{j+2}$.
+\end{itemize}
+
+The second observation means all following $I_j$ are altered as well as their 
+corresponding $\mathbf{P_j}$. Thus, the error propagates to all following 
+rounds.
 \end{solution}
 
 
-\newpage
-
-
-%%=============================================================================
-%%=============================== PROBLEM 7.10 ================================
-%%=============================================================================
+% =============================================================
+% ======================== PROBLEM 7.10 =======================
+% =============================================================
 
 \subsection*{Problem 7.10}
 
@@ -182,32 +170,36 @@ is encrypted using a given counter value is known, then the output of the
 encryption function can be determined easily from the associated ciphertext 
 block. Show the calculation.
 
-%=== SOLUTION ===
+% ==== SOLUTION ====
 \begin{solution}
+
 Know that the CTR mode for encryption is defined as 
 $\mathbf{C_j} = \mathbf{P_j} \oplus E(K,T_j)$. We are assuming that both 
 $\mathbf{C_j}$ and $\mathbf{P_j}$ are known. It follows that 
-	$$\mathbf{P_j} \oplus \mathbf{C_j} 
+	\[ \mathbf{P_j} \oplus \mathbf{C_j} 
 	= \mathbf{P_j} \oplus \mathbf{P_j} \oplus E(K,T_j) 
 	\quad \Rightarrow \quad 
-	\mathbf{P_j} \oplus \mathbf{C_j} = E(K,T_j).$$
+	\mathbf{P_j} \oplus \mathbf{C_j} = E(K,T_j) \]
+
 This gives the output of the encryption function $E$. If we work over the 
 decryption portion, we have
-	$$\mathbf{C_j} \oplus \mathbf{P_j} 
+	\[ \mathbf{C_j} \oplus \mathbf{P_j} 
 	= \mathbf{C_j} \oplus \mathbf{C_j} \oplus E(K,T_j) 
 	\quad \Rightarrow \quad 
-	\mathbf{C_j} \oplus \mathbf{P_j} = E(K,T_j).$$
+	\mathbf{C_j} \oplus \mathbf{P_j} = E(K,T_j) \]
+
 Notice that this is the exact same result as before since the $E$ is used both 
 in encryption and decryption.
+
 \end{solution}
 
 
 \newpage
 
 
-%%=============================================================================
-%%=============================== PROBLEM 1 ===================================
-%%=============================================================================
+% =============================================================
+% ========================= PROBLEM 1 =========================
+% =============================================================
 
 \subsection*{Problem 1}
 
@@ -215,7 +207,6 @@ Compute as much information as you can after each of the four transformations
 for one round of the AES encryption algorithm. The round key is 
 \verb|07070606050504040303020201010000|. The input block looks like this at 
 the beginning of the round:
-
 \begin{center}
 \begin{tabular}{| c | c | c | c |}
 	\hline
@@ -231,82 +222,91 @@ appropriate AES transformation next to each block. (Use the tables below and
 recall that the irreducible polynomial used to generate the field GF($2^8$) 
 in AES is $x^8 + x^4 + x^3 + x + 1$.)
 
-% AES Figures
-% TODO: Fix layout
+% AES S-box.
 \begin{figure}[h]
+\centering
 \begin{minipage}{0.5\textwidth}
-	\VerbatimInput{inputs/hw05_sbox}
+	\VerbatimInput{verbatim/hw05/aes_sbox}
+\end{minipage}
 	\caption{S-box Table}
 	\label{fig:sbox}
-\end{minipage}
-\hfill
-\begin{minipage}{0.4\textwidth}
-	\begin{verbatim}
-        02 03 01 01
-        01 02 03 01
-        01 01 02 03
-        03 01 01 02
-	\end{verbatim}
-	\caption{MixColumns Matrix}
-	\label{fig:mixcols}
-\end{minipage}
 \end{figure}
 
-%=== SOLUTION ===
-\begin{solution}
+\vspace{1cm}
 
-\begin{description}
+% AES MixCols.
+\begin{figure}[h]
+\centering
+\begin{minipage}{0.2\textwidth}
+	\begin{verbatim}
+    02 03 01 01
+    01 02 03 01
+    01 01 02 03
+    03 01 01 02
+	\end{verbatim}
+\end{minipage}
+	\caption{MixColumns Matrix}
+	\label{fig:mixcols}
+\end{figure}
 
-%=== PART A ====
-\item[(a)] Begin by applying the S-box shown in figure \ref{fig:sbox} to the 
-input block.
-	\begin{center}
-	\begin{tabular}{| c | c | c | c |}
-		\hline
-			&    &    & 7D \\ \hline
-		7C &    &    &    \\ \hline
-			& D5 &    &    \\ \hline
-			&    & 54 &    \\ \hline
-	\end{tabular}
-	\qquad {\huge $\Rightarrow$} \qquad
-	\begin{tabular}{| c | c | c | c |}
-		\hline
-			&    &    & FF \\ \hline
-		10 &    &    &    \\ \hline
-			& 03 &    &    \\ \hline
-			&    & 20 &    \\ \hline
-	\end{tabular} \quad \textbf{Substitute bytes}
-	\end{center}
+\vspace{1cm}
 
-%=== PART B ====
-\item[(b)] Next we shift the rows accordingly.
-	\begin{center}
-	\begin{tabular}{| c | c | c | c |}
-		\hline
-			&    &    & FF \\ \hline
-		10 &    &    &    \\ \hline
-			& 03 &    &    \\ \hline
-			&    & 20 &    \\ \hline
-	\end{tabular}
-	\qquad {\huge $\Rightarrow$} \qquad
-	\begin{tabular}{| c | c | c | c |}
-		\hline
-		\ \ \ \ & \ \ \ \ & \ \ \ \ & FF \\ \hline
-		& & & 10 \\ \hline
-		& & & 03 \\ \hline
-		& & & 20 \\ \hline
-	\end{tabular} \quad \textbf{Shift rows}
-	\end{center}
+% AES Irreducible.
+\begin{figure}[h]
+	\[ x^8 + x^4 + x^3 + x + 1 \]
+	\caption{Irreducible Polynomial}
+	\label{fig:poly}
+\end{figure}
 
 
 \newpage
 
+% ==== SOLUTION ====
+\begin{solution}
 
-%=== PART C ====
-\item[(c)] Now we mix the columns with the given AES MixColumns Matrix. 
-However, since the first three columns are not known, we can only perform the 
-transformation to the last column.
-\begin{align*}
+Begin by applying the \nameref{fig:sbox} to the input block and shifting the 
+rows as shown below.
+
+\begin{center}
+\begin{minipage}[t]{0.3\textwidth}
+\centering
+\begin{tabular}{| c | c | c | c |}
+	\hline
+	   &    &    & 7D \\ \hline
+	7C &    &    &    \\ \hline
+	   & D5 &    &    \\ \hline
+	   &    & 54 &    \\ \hline
+\end{tabular}
+\end{minipage}
+{\Large $\Rightarrow$}
+\begin{minipage}[t]{0.3\textwidth}
+\centering
+\begin{tabular}{| c | c | c | c |}
+	\hline
+	   &    &    & FF \\ \hline
+	10 &    &    &    \\ \hline
+	   & 03 &    &    \\ \hline
+	   &    & 20 &    \\ \hline
+\end{tabular} \\[4pt]
+\textbf{Substitute bytes}
+\end{minipage}
+{\Large $\Rightarrow$}
+\begin{minipage}[t]{0.3\textwidth}
+\centering
+\begin{tabular}{| *{3}{ p{10pt} |} c |}
+	\hline
+	& & & FF \\ \hline
+	& & & 10 \\ \hline
+	& & & 03 \\ \hline
+	& & & 20 \\ \hline
+\end{tabular} \\[4pt]
+\textbf{Shift rows}
+\end{minipage}
+\end{center}
+
+Next, apply \nameref{fig:mixcols} to the last column and handle overflow by 
+XOR-ing by the \nameref{fig:poly}.
+	\[
 	\begin{bmatrix}
 		02 & 03 & 01 & 01 \\
 		01 & 02 & 03 & 01 \\
@@ -319,77 +319,41 @@ transformation to the last column.
 	\end{bmatrix} 
 	= 
 	\begin{bmatrix}
-		s'_{0,3} \\ s'_{1,3} \\ s'_{2,3} \\ s'_{3,3}
+		\text{F6} \\
+		\text{FA} \\
+		\text{89} \\
+		\text{49}
 	\end{bmatrix}
-\end{align*}
+	\]
 
-Keep in mind that we're working modulo $f(x) = x^8 + x^4 + x^3 + x + 1$. The 
-first multiplication step is shown below.
-\begin{align*}
-	s'_{0,3} \; 
-	=& \; {\color{red} \text{FF}} \times 02 
-	+ {\color{blue} 10} \times 03 
-	+ {\color{green} 03} \times 01 
-	+ {\color{violet} 20} \times 01 \\
-	=& \; {\color{red} 11111111} \times 02 
-	+ {\color{blue} 00010000} \times 03 
-	+ {\color{green} 00000011} \times 01 
-	+ {\color{violet} 00100000} \times 01 \\
-	=& \; 111101101
-\end{align*}
-
-But then we work with the overflow part by XOR-ing by $f(x)$.
-	$$s'_{0,3} = 111101101 \oplus 100011011 = 011110101$$
-Then by discarding the leading zero, we have $s'_{0,3} = 1111 \; 0101 =$ F6. 
-Similarly, we have
-	\begin{center}
-	$\begin{bmatrix}
-		s'_{0,3} \\ s'_{1,3} \\ s'_{2,3} \\ s'_{3,3}
-	\end{bmatrix} 
-	= 
-	\begin{bmatrix}
-		\text{F6} \\ \text{FA} \\ 89 \\ 49
-	\end{bmatrix}$
-	\qquad {\huge $\Rightarrow$} \qquad
-	\begin{tabular}{| c | c | c | c |}
-		\hline
-		\ \ \ \ & \ \ \ \ & \ \ \ \ & F6 \\ \hline
-		& & & FA \\ \hline
-		& & & 89 \\ \hline
-		& & & 49 \\ \hline
-	\end{tabular} \quad \textbf{Mix columns}
-	\end{center}
-
-%=== PART D ====
-\item[(d)] The last step is to add the round key.
-	\begin{center}
-	\begin{tabular}{| c | c | c | c |}
-		\hline
-		07 & 05 & 03 & 01 \\ \hline
-		07 & 05 & 03 & 01 \\ \hline
-		06 & 04 & 02 & 00 \\ \hline
-		06 & 04 & 02 & 00 \\ \hline
-	\end{tabular}
-	$\; \bigoplus \;$
-	\begin{tabular}{| c | c | c | c |}
-		\hline
-		\ \ \ \ & \ \ \ \ & \ \ \ \ & F6 \\ \hline
-		& & & FA \\ \hline
-		& & & 89 \\ \hline
-		& & & 49 \\ \hline
-	\end{tabular}
-	$\; = \;$
-	\begin{tabular}{| c | c | c | c |}
-		\hline
-		\ \ \ \ & \ \ \ \ & \ \ \ \ & F7 \\ \hline
-		& & & FB \\ \hline
-		& & & 89 \\ \hline
-		& & & 49 \\ \hline
-	\end{tabular} \quad \textbf{Add round key}
-	\end{center}
-
-\end{description}
+Lastly, add the round key to get
+\begin{center}
+\begin{tabular}{| c | c | c | c |}
+	\hline
+	07 & 05 & 03 & 01 \\ \hline
+	07 & 05 & 03 & 01 \\ \hline
+	06 & 04 & 02 & 00 \\ \hline
+	06 & 04 & 02 & 00 \\ \hline
+\end{tabular}
+$\; \bigoplus \;$
+\begin{tabular}{| *{3}{ p{10pt} |} c |}
+	\hline
+	& & & F6 \\ \hline
+	& & & FA \\ \hline
+	& & & 89 \\ \hline
+	& & & 49 \\ \hline
+\end{tabular}
+$\; = \;$
+\begin{tabular}{| *{3}{ p{10pt} |} c |}
+	\hline
+	& & & F7 \\ \hline
+	& & & FB \\ \hline
+	& & & 89 \\ \hline
+	& & & 49 \\ \hline
+\end{tabular}
+\end{center}
 
 \end{solution}
+
 
 \end{document}
